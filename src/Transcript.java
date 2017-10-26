@@ -33,6 +33,7 @@ public class Transcript implements connectURL {
 	
 	/**
 	 * Create the application.
+	 * connecting database
 	 * @throws SQLException 
 	 */
 	public Transcript() throws SQLException {
