@@ -50,7 +50,7 @@ public class Student extends JFrame {
 		btnTranscript.setVerticalAlignment(SwingConstants.TOP);
 		btnTranscript.setEnabled(true);
 		btnTranscript.setBackground(Color.LIGHT_GRAY);
-		btnTranscript.setBounds(20, 30, 20, 30);
+		btnTranscript.setBounds(42, 101, 134, 23);
 		btnTranscript.addActionListener(new ActionListener() 
 		{
 			  
@@ -67,7 +67,11 @@ public class Student extends JFrame {
 				tscript.transcript();
 			}	
 			});
-		frame.getContentPane().add(btnTranscript, BorderLayout.WEST);
+		frame.getContentPane().setLayout(null);
+		frame.getContentPane().add(btnTranscript);
+		
+		JButton btnViewGrades = new JButton("View Grades");
+		btnViewGrades.setBounds(42, 135, 134, 23);
+		frame.getContentPane().add(btnViewGrades);
 	}
-
 }
