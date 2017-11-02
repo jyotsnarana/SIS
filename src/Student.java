@@ -73,5 +73,18 @@ public class Student extends JFrame {
 		JButton btnViewGrades = new JButton("View Grades");
 		btnViewGrades.setBounds(42, 135, 134, 23);
 		frame.getContentPane().add(btnViewGrades);
+		btnViewGrades.addActionListener(new ActionListener()
+				{
+
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+
+						ViewGrades view_Grades=null;
+						view_Grades = new ViewGrades();
+						view_Grades.viewGrades();
+						
+					}
+			
+				});
 	}
 }

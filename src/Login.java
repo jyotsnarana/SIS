@@ -95,9 +95,6 @@ public class Login {
 		comboBox.addItem("Admin");
 		comboBox.addItem("Student");
 		comboBox.addItem("Professor");
-		//String choices[]= {"Admin", "Student", "Professor"};
-		//final JComboBox <String> cb= new JComboBox<String>(choices);
-		//cb.setVisible(true);
 		
 		JButton btnLogin = new JButton("Login In");
 		btnLogin.setBounds(138, 168, 89, 23);

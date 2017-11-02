@@ -1,15 +1,16 @@
 
 public class transcriptlist {
 	
-private String term, course, description, grade, GPA;
+private String term, course, description, grade, GPA, grade_Points;
 
-	public transcriptlist(String term, String course, String description, String grade, String GPA)
+	public transcriptlist(String term, String course, String description, String grade, String GPA, String grade_Points)
 	{
 		this.term=term;
 		this.course=course;
 		this.description=description;
 		this.grade=grade;
 		this.GPA=GPA;
+		this.grade_Points=grade_Points;
 	}
 	public String getterm()
 	{
@@ -31,7 +32,10 @@ private String term, course, description, grade, GPA;
 	{
 		return GPA;
 	}
-
+	public String getgrade_Points()
+	{
+		return grade_Points;
+	}
 
 
 

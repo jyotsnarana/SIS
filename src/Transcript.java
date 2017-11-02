@@ -69,7 +69,7 @@ public class Transcript implements connectURL {
 		        transcriptlist list;
 		        while(rs.next())
 		        {
-		        	list=new transcriptlist(rs.getString("Term"), rs.getString("Course"), rs.getString("Description"), rs.getString("Grade"), rs.getString("GPA"));
+		        	list=new transcriptlist(rs.getString("Term"), rs.getString("Course"), rs.getString("Description"), rs.getString("Grade"), rs.getString("GPA"), rs.getString("grade_Points"));
 		        	usersList.add(list);
 		        }
 		}
@@ -85,7 +85,7 @@ public class Transcript implements connectURL {
 	{
 		ArrayList<transcriptlist> list_1= userList();
 		DefaultTableModel model=(DefaultTableModel)table.getModel();
-		Object[] row=new Object[8];
+		Object[] row=new Object[5];
 		for(int i=0;i<list_1.size();i++)
 		{
 			row[0]=list_1.get(i).getterm();
