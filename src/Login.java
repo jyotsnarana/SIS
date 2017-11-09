@@ -149,6 +149,7 @@ public class Login {
 						{
 							Professor prof=new Professor();
 							prof.newScreen2();
+							//prof.initialize().lblNewLabel="prof";
 						}
 		        	   else
 		        		   JOptionPane.showMessageDialog(null, "Wrong username");   

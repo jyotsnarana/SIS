@@ -23,6 +23,7 @@ public class Student extends JFrame {
 				try {
 					Student window = new Student();
 					window.frame.setVisible(true);
+					//window.frame.setResizable(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -45,6 +46,7 @@ public class Student extends JFrame {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setTitle("STUDENT");
+		
 		
 		JButton btnTranscript = new JButton("Transcript");
 		btnTranscript.setVerticalAlignment(SwingConstants.TOP);

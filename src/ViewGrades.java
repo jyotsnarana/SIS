@@ -15,7 +15,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class ViewGrades extends JFrame {
-
+	private JFrame frame;
 	private JPanel contentPane;
 	private JTable table_view;
 	//private JComboBox comboBox;
@@ -26,8 +26,8 @@ public class ViewGrades extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ViewGrades frame = new ViewGrades();
-					frame.setVisible(true);
+					ViewGrades window = new ViewGrades();
+					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -72,60 +72,36 @@ public class ViewGrades extends JFrame {
 	@SuppressWarnings("unchecked")
 	public void show_view()
 	{
-		@SuppressWarnings("rawtypes")
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(209, 24, 103, 20);
-		contentPane.add(comboBox);
-		comboBox.addItem("---Select---");
-		comboBox.addItem("Winter 2016");
-		comboBox.addItem("Summer 2016");
-		comboBox.addItem("Fall 2016");
-		comboBox.addItem("Winter 2017");
-		comboBox.addItem("Summer 2017");
-		comboBox.addItem("Fall 2017");
-		ArrayList<transcriptlist> list_1= userList();
-		DefaultTableModel model=(DefaultTableModel)table_view.getModel();
-		Object[] row=new Object[8];
-//		if(comboBox.getSelectedItem()=="---Select---")
-//			{
-//				row[0]="Null";
-//				row[1]="Null";
-//				row[2]="Null";
-//				row[3]="Null";
-//				model.addRow(row);	
-//			}
 		
-		if(comboBox.getSelectedItem() == "Winter 2016")
-			{
-				for(int i=0;i<11;)
-					{
-						for(int j=0; ((list_1.get(i).getterm()).equals("Winter16"));j++,i++)
-						{
-							row[0]=list_1.get(j).getcourse();
-							row[1]=list_1.get(j).getdescription();
-							row[2]=list_1.get(j).getgrade();
-							row[3]=list_1.get(j).getgrade_Points();
-							model.addRow(row);
-						}
-					}
+		
 			
 			}
-	}
+	
 	
 	
 	@SuppressWarnings("unchecked")
 	public void initialize()
 	{
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
+		frame = new JFrame();
+		frame.setBounds(100, 100, 450, 300);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setTitle("Professor");
+		frame.getContentPane().setLayout(null);
 	
-		
-		
+		@SuppressWarnings("rawtypes")
+		String items[]= {"Winter2016","Summer2016","Fall2016","Winter2017","Summer2017","Fall2017"};
+		JComboBox comboBox_1 = new JComboBox(items);
+		comboBox_1.setBounds(209, 24, 103, 20);
+		frame.getContentPane().add(comboBox_1);
+		contentPane.add(comboBox_1);
+		//comboBox.addItem("---Select---");
+//		comboBox_1.addItem("Winter2016");
+//		comboBox_1.addItem("Summer2016");
+//		comboBox_1.addItem("Fall2016");
+//		comboBox_1.addItem("Winter2017");
+//		comboBox_1.addItem("Summer2017");
+//		comboBox_1.addItem("Fall2017");
+//		
 		JLabel lblSelectTerm = new JLabel("Select Term:");
 		lblSelectTerm.setBounds(96, 27, 103, 14);
 		contentPane.add(lblSelectTerm);
@@ -136,10 +112,38 @@ public class ViewGrades extends JFrame {
 				{"Course", "Description", "Grades", "Grade Points"},
 			},
 			new String[] {
-				"New column", "New column", "New column", "New column"
+				"Course", "Description", "Grades", "Grade Points"
 			}
 		));
 		table_view.setBounds(29, 76, 377, 148);
-		contentPane.add(table_view);
+		frame.getContentPane().add(table_view);
+		
+		ArrayList<transcriptlist> list_1= userList();
+		DefaultTableModel model=(DefaultTableModel)table_view.getModel();
+		Object[] row=new Object[10];
+		comboBox_1.setSelectedIndex(-1);
+		for(int i=0;i<list_1.size();i++)
+		{
+	
+		if( list_1.get(i).getterm().equalsIgnoreCase("Winter16  ") && comboBox_1.getSelectedItem() == "Winter2016")
+						{
+							row[0]=list_1.get(i).getcourse();
+							row[1]=list_1.get(i).getdescription();
+							row[2]=list_1.get(i).getgrade();
+							row[3]=list_1.get(i).getgrade_Points();
+							model.addRow(row);	
+							 System.out.println(comboBox_1.getSelectedItem());
+						}
+			
+		 if(list_1.get(i).getterm().equalsIgnoreCase("Summer16  ") && comboBox_1.getItemAt(i) == "Summer2016")
+			{
+				row[0]=list_1.get(i).getcourse();
+				row[1]=list_1.get(i).getdescription();
+				row[2]=list_1.get(i).getgrade();
+				row[3]=list_1.get(i).getgrade_Points();
+				model.addRow(row);		
+				System.out.println(row[0]);
+			}
+					}
 	}
 }
