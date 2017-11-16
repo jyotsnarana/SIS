@@ -58,8 +58,7 @@ public class Professor {
 		frame.getContentPane().add(btnChangeGrades);
 		btnChangeGrades.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ChangeGrade ch=new ChangeGrade();
-						ch.changeGrade();
+				ChangeGrade.changeGrade();
 			}
 		});
 	

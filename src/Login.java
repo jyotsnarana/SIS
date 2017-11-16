@@ -137,19 +137,15 @@ public class Login {
 		        	
 		        	   if( (comboBox.getSelectedItem()== "Admin") && (textField.getText().equals("admin"))  )
 					   {
-						 Admin ad= new Admin();
-						 ad.newScreen();
-					    }	
+						 Admin.newScreen();
+					   }	
 		        	   else if((comboBox.getSelectedItem()== "Student") && (textField.getText().equals("student")))
 						{
-							Student student= new Student();
-							student.newScreen1();
+							Student.newScreen1();
 						}
 		        	   else if((comboBox.getSelectedItem()== "Professor") && (textField.getText().equals("professor")))
 						{
-							Professor prof=new Professor();
-							prof.newScreen2();
-							//prof.initialize().lblNewLabel="prof";
+							Professor.newScreen2();
 						}
 		        	   else
 		        		   JOptionPane.showMessageDialog(null, "Wrong username");   

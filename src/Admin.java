@@ -12,7 +12,7 @@ public class Admin extends JFrame{
 	/**
 	 * Launch the application.
 	 */
-	public void newScreen() {
+	public static void newScreen() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

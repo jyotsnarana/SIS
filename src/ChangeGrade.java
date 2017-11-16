@@ -24,7 +24,7 @@ public class ChangeGrade extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public void changeGrade() {
+	public static void changeGrade() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -46,10 +46,9 @@ public class ChangeGrade extends JFrame {
 	
   public void initialize()
   {
-	  frame = new JFrame();
+	  	frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setTitle("Professor");
 		frame.getContentPane().setLayout(null);
 		frame.setTitle("Change Grade");
 		
@@ -105,13 +104,18 @@ public class ChangeGrade extends JFrame {
 				 		String connectionUrl = "jdbc:sqlserver://localhost:1433;" +  
 				         "databaseName=sis_db;user=sa;password=jyotsna";  
 				 		con = DriverManager.getConnection(connectionUrl);  
-				
+				 		if((textField_3.getText()).equals(null))
+		        		{
+		        			JOptionPane.showMessageDialog(null, "Fill the fields for updation");	
+		        		}
+				 		else {
 				 		// Create and execute an SQL statement that returns some data.
 				 		String SQL = "update soen6441 set Grade= '"+ textField_3.getText().toUpperCase() +"' where StudentID = '"+textField_2.getText()+"' ";
 				 		stmt = con.createStatement(); 
 				 	    System.out.println(textField_3.getText());
 		        		stmt.executeUpdate(SQL);
 		        		JOptionPane.showMessageDialog(null, "Database updated");
+		        		}
 		       }
 				catch (Exception e1)
 				{  

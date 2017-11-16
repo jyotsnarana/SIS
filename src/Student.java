@@ -59,14 +59,7 @@ public class Student extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				Transcript tscript = null;
-				try {
-					tscript = new Transcript();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				tscript.transcript();
+				Transcript.transcript();
 			}	
 			});
 		frame.getContentPane().setLayout(null);
@@ -75,18 +68,31 @@ public class Student extends JFrame {
 		JButton btnViewGrades = new JButton("View Grades");
 		btnViewGrades.setBounds(42, 135, 134, 23);
 		frame.getContentPane().add(btnViewGrades);
+		
+		JButton btnNewButton = new JButton("Tutition Fee");
+		btnNewButton.setBounds(42, 169, 134, 23);
+		frame.getContentPane().add(btnNewButton);
+		
 		btnViewGrades.addActionListener(new ActionListener()
 				{
 
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
 
-						ViewGrades view_Grades=null;
-						view_Grades = new ViewGrades();
-						view_Grades.viewGrades();
-						
-					}
-			
+						ViewGrades.viewGrades();
+						}
 				});
+		
+		btnNewButton.addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+
+//				Tutition_fee fee= new Tutition_fee();
+//				fee.tutitionFee();
+				Tutition_fee.main(null);
+				}
+		});
 	}
 }
