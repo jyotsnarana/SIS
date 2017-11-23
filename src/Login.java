@@ -1,3 +1,4 @@
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -6,6 +7,9 @@ import javax.swing.JOptionPane;
 
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
+
+
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -88,7 +92,7 @@ public class Login {
 		passwordField_1.setBounds(210, 97, 86, 20);
 		frame.getContentPane().add(passwordField_1);
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox<String> comboBox = new JComboBox<String>();
 		comboBox.setBounds(210, 129, 86, 20);
 		frame.getContentPane().add(comboBox);
 		comboBox.addItem("---Select---");

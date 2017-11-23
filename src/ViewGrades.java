@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+
 public class ViewGrades extends JFrame {
 	private JFrame frame;
 	private JPanel contentPane;

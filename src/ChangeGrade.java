@@ -97,18 +97,17 @@ public class ChangeGrade extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				Connection con = null;  
 			Statement stmt = null;  
-			     // ResultSet rs = null;  
+			if((textField_3.getText().toString().trim().length()== 0) && (textField_2.getText().toString().trim().length()== 0 ))
+    		{
+    			JOptionPane.showMessageDialog(null, "Fill the fields for updation");	
+    		}else {
 				try 
 				{
 						Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");  
 				 		String connectionUrl = "jdbc:sqlserver://localhost:1433;" +  
 				         "databaseName=sis_db;user=sa;password=jyotsna";  
 				 		con = DriverManager.getConnection(connectionUrl);  
-				 		if((textField_3.getText()).equals(null))
-		        		{
-		        			JOptionPane.showMessageDialog(null, "Fill the fields for updation");	
-		        		}
-				 		else {
+				 		
 				 		// Create and execute an SQL statement that returns some data.
 				 		String SQL = "update soen6441 set Grade= '"+ textField_3.getText().toUpperCase() +"' where StudentID = '"+textField_2.getText()+"' ";
 				 		stmt = con.createStatement(); 
@@ -116,11 +115,12 @@ public class ChangeGrade extends JFrame {
 		        		stmt.executeUpdate(SQL);
 		        		JOptionPane.showMessageDialog(null, "Database updated");
 		        		}
-		       }
+		       
 				catch (Exception e1)
 				{  
 					 JOptionPane.showMessageDialog(null,e1);
-			      }  
+			    }  
+	 		}
 			}
 		});
   }
