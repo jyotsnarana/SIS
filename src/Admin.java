@@ -44,7 +44,7 @@ public class Admin extends JFrame{
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.setTitle("ADMIN");
+		frame.setTitle("ADMIN");
 		frame.getContentPane().setLayout(null);
 		JLabel lblAdmin = new JLabel("");
 		lblAdmin.setBounds(0, 0, 434, 261);
@@ -58,6 +58,10 @@ public class Admin extends JFrame{
 		JButton btnChangeClassCapacity = new JButton("Change Class Capacity");
 		btnChangeClassCapacity.setBounds(27, 152, 144, 23);
 		frame.getContentPane().add(btnChangeClassCapacity);
+		
+		JButton btnRegisterCourses = new JButton("Register Courses");
+		btnRegisterCourses.setBounds(27, 118, 144, 23);
+		frame.getContentPane().add(btnRegisterCourses);
 		btnViewTranscript.addActionListener(new ActionListener() 
 		{
 			  
@@ -74,6 +78,15 @@ public class Admin extends JFrame{
 			public void actionPerformed(ActionEvent arg0) 
 			{
 				ChangeCapacity.main(null);
+			}	
+			});
+		btnRegisterCourses.addActionListener(new ActionListener() 
+		{
+			  
+			@Override
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				RegisterCourse.main();
 			}	
 			});
 	}

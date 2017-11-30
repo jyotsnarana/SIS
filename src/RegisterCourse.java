@@ -15,18 +15,20 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
+import javax.swing.JTextField;
 
 public class RegisterCourse {
     
 	public JButton btnGo;
-	public  JComboBox comboBox;
 	private JFrame frame;
 	private JTable table_1;
-
+	private JTextField textField;
+	private JButton btnAdd;
+	String term, course, description, professor, startdate, enddate, starttime, endtime;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -51,11 +53,7 @@ public class RegisterCourse {
 		ArrayList<registerList> usersList=new ArrayList<>();
 		
 		
-		btnGo.addActionListener(new ActionListener() {
-			  
-			@SuppressWarnings("unlikely-arg-type")
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
+		
 			
 				        Connection con = null;  
 					      Statement stmt = null;  
@@ -69,8 +67,8 @@ public class RegisterCourse {
 			 con = DriverManager.getConnection(connectionUrl);  
 			
 			 
-			        if (comboBox.equals("WINTER18")) {
-			        	String SQL = "SELECT * FROM register_student where Term= 'winter18'";  
+			       
+			        	String SQL = "SELECT * FROM register_student" ;
 				        stmt = con.createStatement();  
 				        rs = stmt.executeQuery(SQL);
 				        registerList list;
@@ -79,49 +77,14 @@ public class RegisterCourse {
 				        	list=new registerList(rs.getString("Term"), rs.getString("Course"), rs.getString("Description"), rs.getString("Professor"), rs.getString("Start date"), rs.getString("End date"), rs.getString("Start time"), rs.getString("End time"), rs.getString("Vacancy"));
 				        	usersList.add(list);
 				        }
-				
-					 }
-			         else if (comboBox.equals("SUMMER18")) {
-			        	 String SQL = "SELECT * FROM register_student where Term= 'summer18'";  
-					        stmt = con.createStatement();  
-					        rs = stmt.executeQuery(SQL);
-					        registerList list;
-					        while(rs.next())
-					        {
-					        	list=new registerList(rs.getString("Term"), rs.getString("Course"), rs.getString("Description"), rs.getString("Professor"), rs.getString("Start date"), rs.getString("End date"), rs.getString("Start time"), rs.getString("End time"), rs.getString("Vacancy"));
-					        	usersList.add(list);
-					        }
-					
-						 }
-			         else if (comboBox.equals("FALL18"))
-			         {
-			        	 String SQL = "SELECT * FROM register_student where Term= 'fall18'";  
-					        stmt = con.createStatement();  
-					        rs = stmt.executeQuery(SQL);
-					        registerList list;
-					        while(rs.next())
-					        {
-					        	list=new registerList(rs.getString("Term"), rs.getString("Course"), rs.getString("Description"), rs.getString("Professor"), rs.getString("Start date"), rs.getString("End date"), rs.getString("Start time"), rs.getString("End time"), rs.getString("Vacancy"));
-					        	usersList.add(list);
-					        }
-					
-						 }
+			
 			 }     
 		catch (Exception e) {  
 	        e.printStackTrace();  
 	     }
-			         }
-	      }
-			 );
-
-		
-		return usersList;
+	return usersList;
 	}
-	
-	
-	
-	
-	  
+
 
 	public void show_list()
 	{
@@ -151,18 +114,7 @@ public class RegisterCourse {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
-	    comboBox = new JComboBox();
-		comboBox.setBounds(207, 11, 84, 20);
-		frame.getContentPane().add(comboBox);
-		//comboBox.addItem("---Select---");
-		comboBox.addItem("WINTER18");
-		comboBox.addItem("SUMMER18");
-		comboBox.addItem("FALL18");
-		
-		JLabel lblTerm = new JLabel("Term");
-		lblTerm.setBounds(136, 14, 46, 14);
-		frame.getContentPane().add(lblTerm);
+
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 46, 414, 116);
@@ -176,13 +128,57 @@ public class RegisterCourse {
 				"Term","Course", "Description", "Professor", "Start", "End", "Start Time", "End Time", "Vacancy"
 			}
 		));
+		
+		table_1.setRowSelectionAllowed(true);
 		scrollPane.setViewportView(table_1);
 		
-		JButton btnGo = new JButton("Go");
-		btnGo.setBounds(301, 10, 46, 23);
-		frame.getContentPane().add(btnGo);
-		
-				
+		btnAdd = new JButton("Add");
+		btnAdd.setBounds(165, 173, 89, 23);
+		frame.getContentPane().add(btnAdd);
 
+		
+		btnAdd.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					int rowNum= table_1.getSelectedRow();
+				String Course=(String) table_1.getValueAt(rowNum, 1);
+				
+				 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");  
+				 String connectionUrl = "jdbc:sqlserver://localhost:1433;" +  
+				         "databaseName=sis_db;user=sa;password=jyotsna";  
+				Connection con = DriverManager.getConnection(connectionUrl);  
+				
+				String SQL1 = "select * from register_student Where Course='"+Course+"'" ;
+			    Statement   stmt1 = con.createStatement();  
+			     ResultSet   rs1 = stmt1.executeQuery(SQL1);
+			     
+			   
+			     
+			     while(rs1.next()) {
+			    	 term= rs1.getString("Term");
+			    	 course= rs1.getString("Course");
+			    	 description= rs1.getString("Description");
+//			    	 professor= rs1.getString("Professor");
+//			    	 startdate= rs1.getString("Start date");
+//			    	 enddate= rs1.getString("End date");
+//			    	 starttime= rs1.getString("Start time");
+//			    	 endtime= rs1.getString("End time");
+			    	 System.out.println(course);
+			     }
+				       
+				        String SQL = "INSERT INTO addcourse (Term, Course, Description) VALUES ('"+term+"','"+course+"','"+description+"') " ;
+					    Statement   stmt = con.createStatement();  
+					    stmt.executeUpdate(SQL);
+					        
+					       
+				
+				
+				}catch(Exception ex) {
+					
+				}
+			}
+		});
 	}
 }
