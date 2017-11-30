@@ -73,6 +73,15 @@ public class Student extends JFrame {
 		btnNewButton.setBounds(42, 169, 134, 23);
 		frame.getContentPane().add(btnNewButton);
 		
+		JButton btnCourseCart = new JButton("Course Cart");
+		btnCourseCart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CourseCart.main(null);
+			}
+		});
+		btnCourseCart.setBounds(42, 67, 134, 23);
+		frame.getContentPane().add(btnCourseCart);
+		
 		btnViewGrades.addActionListener(new ActionListener()
 				{
 

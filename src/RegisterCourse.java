@@ -160,11 +160,6 @@ public class RegisterCourse {
 			    	 term= rs1.getString("Term");
 			    	 course= rs1.getString("Course");
 			    	 description= rs1.getString("Description");
-//			    	 professor= rs1.getString("Professor");
-//			    	 startdate= rs1.getString("Start date");
-//			    	 enddate= rs1.getString("End date");
-//			    	 starttime= rs1.getString("Start time");
-//			    	 endtime= rs1.getString("End time");
 			    	 System.out.println(course);
 			     }
 				       
