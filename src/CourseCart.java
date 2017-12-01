@@ -9,11 +9,13 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JButton;
 
 public class CourseCart {
 
 	private JFrame frame;
 	private JTable table_1;
+	private JButton btnDrop;
 
 	/**
 	 * Launch the application.
@@ -131,5 +133,9 @@ public class CourseCart {
 		table_1.setRowSelectionAllowed(true);
 		
 		scrollPane.setViewportView(table_1);
+		
+		btnDrop = new JButton("Drop");
+		btnDrop.setBounds(167, 192, 89, 23);
+		frame.getContentPane().add(btnDrop);
 	}
 }
