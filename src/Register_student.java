@@ -22,7 +22,10 @@ public class Register_student {
 	String term, course, description;
 
 	/**
-	 * Launch the application.
+	 * Student registration done by student only
+	 * uses database table "register_student"
+	 * update database table "addcourse"
+	 * @author jyotsna
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -45,6 +48,10 @@ public class Register_student {
 		show_list();
 	}
 
+	/**
+	 * connection string used to connect to the database.
+	 * @return arraylist of registerlist
+	 */
 	public ArrayList<registerList> userList(){
 		ArrayList<registerList> usersList=new ArrayList<>();
 		
@@ -82,6 +89,9 @@ public class Register_student {
 	}
 
 
+	/**
+	 * showing contents of the database in jtable
+	 */
 	public void show_list()
 	{
 		ArrayList<registerList> list_1= userList();
@@ -106,6 +116,7 @@ public class Register_student {
 	
 	/**
 	 * Initialize the contents of the frame.
+	 * adding connection string in add button to update the "addcourse" database table
 	 */
 	private void initialize() {
 		frame = new JFrame();

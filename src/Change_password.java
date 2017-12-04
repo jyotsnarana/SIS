@@ -24,7 +24,9 @@ public class Change_password extends JFrame {
 
 
 	/**
-	 * Launch the application.
+	 * Change password frame used to change the password for users
+	 * Updates the database table "login"
+	 * @author jyotsna
 	 */
 	public static void changePassword() {
 		EventQueue.invokeLater(new Runnable() {
@@ -41,6 +43,7 @@ public class Change_password extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * connection string to update the database.
 	 */
 	public Change_password() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

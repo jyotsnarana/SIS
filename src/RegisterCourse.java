@@ -28,7 +28,10 @@ public class RegisterCourse {
 	String term, course, description;
 	private JButton btnDrop;
 	/**
-	 * Launch the application.
+	 * Registration of course by admin
+	 * uses database table "register_student"
+	 * update database table "addcourse"
+	 * @author jyotsna
 	 */
 	public static void main() {
 		EventQueue.invokeLater(new Runnable() {
@@ -51,6 +54,10 @@ public class RegisterCourse {
 		show_list();
 	}
 
+	/**
+	 * connection string for retrieving data from register_student database
+	 * @return array of rows in register_student
+	 */
 	public ArrayList<registerList> userList(){
 		ArrayList<registerList> usersList=new ArrayList<>();
 		
@@ -88,6 +95,9 @@ public class RegisterCourse {
 	}
 
 
+	/**
+	 * showing the contents of register_student database
+	 */
 	public void show_list()
 	{
 		ArrayList<registerList> list_1= userList();
@@ -110,6 +120,7 @@ public class RegisterCourse {
 
 	/**
 	 * Initialize the contents of the frame.
+	 * updating the addcourse database
 	 */
 	private void initialize() {
 		frame = new JFrame();

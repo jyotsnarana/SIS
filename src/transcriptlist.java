@@ -1,4 +1,8 @@
-
+/**
+ * class used to retrieve data from the database table "transcript"
+ * @author jyotsna
+ *
+ */
 public class transcriptlist {
 	
 private String term, course, description, grade, GPA, term_GPA;

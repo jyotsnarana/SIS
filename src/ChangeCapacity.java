@@ -24,7 +24,9 @@ public class ChangeCapacity extends JFrame {
 	private JTextField textField_1;
 
 	/**
-	 * Launch the application.
+	 * Changing the capacity of particular lecture by admin
+	 * updates the database table "capacity"
+	 * @author jyotsna
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

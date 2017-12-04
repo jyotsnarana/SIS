@@ -29,8 +29,9 @@ public class Transcript implements connectURL {
 	
 
 	/**
-	 * Launch the application.
-	
+	 * showing the transcript of the student.
+	 * using database table "transcript"
+	 * @author jyotsna
 	 */
 	public static void transcript()  {
 		EventQueue.invokeLater(new Runnable() {
@@ -55,6 +56,10 @@ public class Transcript implements connectURL {
 		show_list();
 	}
 
+	/**
+	 * connection string to connect to the database and retreiving the rows from transcript
+	 * @return rows from transcript table
+	 */
 	public ArrayList<transcriptlist> userList(){
 		ArrayList<transcriptlist> usersList=new ArrayList<>();
 		Connection con = null;  
@@ -81,8 +86,9 @@ public class Transcript implements connectURL {
 		return usersList;
 	}
 	
-	
-	
+	/**
+	 * showing the contents of transcript table.
+	 */
 	public void show_list()
 	{
 		ArrayList<transcriptlist> list_1= userList();

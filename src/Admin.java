@@ -15,7 +15,8 @@ public class Admin extends JFrame{
 	private JFrame frame;
 
 	/**
-	 * Launch the application.
+	 * admin login page
+	 * @author jyotsna
 	 */
 	public static void newScreen() {
 		EventQueue.invokeLater(new Runnable() {
@@ -49,15 +50,15 @@ public class Admin extends JFrame{
 		
 		
 		JButton btnViewTranscript = new JButton("View Transcript");
-		btnViewTranscript.setBounds(27, 165, 144, 23);
+		btnViewTranscript.setBounds(113, 165, 171, 23);
 		frame.getContentPane().add(btnViewTranscript);
 		
 		JButton btnChangeClassCapacity = new JButton("Change Class Capacity");
-		btnChangeClassCapacity.setBounds(27, 106, 144, 23);
+		btnChangeClassCapacity.setBounds(113, 107, 171, 23);
 		frame.getContentPane().add(btnChangeClassCapacity);
 		
 		JButton btnRegisterCourses = new JButton("Register Courses");
-		btnRegisterCourses.setBounds(27, 40, 144, 23);
+		btnRegisterCourses.setBounds(113, 39, 171, 23);
 		frame.getContentPane().add(btnRegisterCourses);
 		btnViewTranscript.addActionListener(new ActionListener() 
 		{

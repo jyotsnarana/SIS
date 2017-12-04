@@ -21,7 +21,9 @@ public class CourseCart {
 	private JButton btnDrop;
 	String term, course, description;
 	/**
-	 * Launch the application.
+	 * Course cart added for student frame
+	 * database table "addcourse" used to show the courses taken.
+	 * @author jyotsna
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -44,6 +46,10 @@ public class CourseCart {
 		show_list();
 	}
 
+	/**
+	 * connection string to connect to the database
+	 * @return arraylist of addcourse
+	 */
 	public ArrayList<addCourse> userList(){
 		ArrayList<addCourse> usersList=new ArrayList<>();
 		
@@ -81,6 +87,9 @@ public class CourseCart {
 	}
 
 
+	/**
+	 * showing the contents of the database table on to the jtable
+	 */
 	public void show_list()
 	{
 		ArrayList<addCourse> list_1= userList();

@@ -15,7 +15,9 @@ public class WeeklySchedule {
 	private JFrame frame;
 	private JTable table_1;
 	/**
-	 * Launch the application.
+	 * frame to show the weekly schedule of the professor
+	 * uses database table "capacity"
+	 * @author jyotsna
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -38,6 +40,10 @@ public class WeeklySchedule {
 		show_list();
 	}
 	
+	/**
+	 * connection string used to extract contents from the capacity table.
+	 * @return rows from table capacity
+	 */
 	public ArrayList<capacitylist> userList(){
 		ArrayList<capacitylist> usersList=new ArrayList<>();
 		Connection con = null;  
@@ -65,7 +71,9 @@ public class WeeklySchedule {
 	}
 	
 	
-	
+	/**
+	 * showing contents of database table capacity
+	 */
 	public void show_list()
 	{
 		ArrayList<capacitylist> list_1= userList();

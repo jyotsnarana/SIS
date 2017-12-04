@@ -14,7 +14,8 @@ public class Professor {
 	private JFrame frame;
 
 	/**
-	 * Launch the application.
+	 * professor login page
+	 * @author jyotsna
 	 */
 	public static void newScreen2() {
 		EventQueue.invokeLater(new Runnable() {

@@ -21,7 +21,8 @@ public class Tutition_fee extends JFrame {
 	private JTextField textField_4;
 
 	/**
-	 * Launch the application.
+	 * frame used to pay the tutition fee by the student.
+	 * @author jyotsna
 	 */
 	public static void main(String args[]) {
 		EventQueue.invokeLater(new Runnable() {

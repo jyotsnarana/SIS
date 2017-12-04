@@ -1,4 +1,8 @@
-
+/**
+ * class used to extract contents from the database table "addcourse"
+ * @author jyotsna
+ *
+ */
 public class addCourse {
 	private String term, course, description;
 	

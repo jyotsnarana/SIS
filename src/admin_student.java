@@ -13,7 +13,8 @@ public class admin_student {
 	private JTextField textField;
 
 	/**
-	 * Launch the application.
+	 * frame used to get studentid by admin to access the account of student.
+	 * @author jyotsna
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

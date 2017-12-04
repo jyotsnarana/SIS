@@ -35,7 +35,8 @@ public class Login {
 	private JPasswordField passwordField_1;
 
 	/**
-	 * Launch the application.
+	 * Login page for login to the system
+	 * @author jyotsna
 	 */
 	public static void main(String[] args) {
 		
@@ -60,6 +61,7 @@ public class Login {
 
 	/**
 	 * Initialize the contents of the frame.
+	 * using sql server connection to connect to the server where data stored for authentication.
 	 */
 	@SuppressWarnings("unchecked")
 	private void initialize() {

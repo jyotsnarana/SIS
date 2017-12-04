@@ -1,4 +1,8 @@
-
+/**
+ * class to extract the contents of database table "capacity" to be shown in weekly schedule used for professor
+ * @author jyotsna
+ *
+ */
 public class capacitylist {
 	private String course, description, schedule, time, room, capacity;
 

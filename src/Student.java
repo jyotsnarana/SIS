@@ -25,7 +25,10 @@ public class Student extends JFrame {
 	private JFrame frame;
 	private JTable table_1;
 	/**
-	 * Launch the application.
+	 * student login frame
+	 * using addcourse class to show the contents in the table
+	 * @see addcourse
+	 * @author jyotsna
 	 */
 	public static void newScreen1() {
 		EventQueue.invokeLater(new Runnable() {
@@ -49,6 +52,10 @@ public class Student extends JFrame {
 		show_list();
 	}
 
+	/**
+	 * connection string used to connect to the SQL Server
+	 * @return arraylist of addcourse
+	 */
 	public ArrayList<addCourse> userList(){
 		ArrayList<addCourse> usersList=new ArrayList<>();
 		
@@ -85,7 +92,9 @@ public class Student extends JFrame {
 	return usersList;
 	}
 
-
+	/**
+	 * showing the contents of database in the jtable
+	 */
 	public void show_list()
 	{
 		ArrayList<addCourse> list_1= userList();

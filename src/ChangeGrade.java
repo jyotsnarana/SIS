@@ -22,7 +22,9 @@ public class ChangeGrade extends JFrame {
 	private JTextField textField_3;
 
 	/**
-	 * Launch the application.
+	 * Changing grade by professor only.
+	 * updates the database table "soen6441".
+	 * @author jyotsna
 	 */
 	public static void changeGrade() {
 		EventQueue.invokeLater(new Runnable() {
@@ -44,6 +46,10 @@ public class ChangeGrade extends JFrame {
 		initialize();
 	}
 	
+	/**
+	 * initialize the frame
+	 * connection string to connect to the database.
+	 */
   public void initialize()
   {
 	  	frame = new JFrame();

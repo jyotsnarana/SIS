@@ -1,4 +1,8 @@
-
+/**
+ * class used to retrieve the contents of "register_student" database.
+ * @author jyotsna
+ *
+ */
 public class registerList {
 	private String term, course, description, professor, start_date, end_date, start_time, end_time, vacancy;
 
