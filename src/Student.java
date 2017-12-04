@@ -18,6 +18,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import javax.swing.UIManager;
 
 public class Student extends JFrame {
 
@@ -105,7 +106,7 @@ public class Student extends JFrame {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.setTitle("STUDENT");
+		frame.setTitle("STUDENT");
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(193, 71, 210, 142);
@@ -114,8 +115,8 @@ public class Student extends JFrame {
 		JButton btnTranscript = new JButton("Transcript");
 		btnTranscript.setVerticalAlignment(SwingConstants.TOP);
 		btnTranscript.setEnabled(true);
-		btnTranscript.setBackground(Color.LIGHT_GRAY);
-		btnTranscript.setBounds(10, 122, 134, 23);
+		btnTranscript.setBackground(UIManager.getColor("Button.disabledForeground"));
+		btnTranscript.setBounds(10, 142, 134, 23);
 		btnTranscript.addActionListener(new ActionListener() 
 		{
 			  
@@ -128,12 +129,8 @@ public class Student extends JFrame {
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(btnTranscript);
 		
-		JButton btnViewGrades = new JButton("View Grades");
-		btnViewGrades.setBounds(10, 156, 134, 23);
-		frame.getContentPane().add(btnViewGrades);
-		
 		JButton btnNewButton = new JButton("Tutition Fee");
-		btnNewButton.setBounds(10, 190, 134, 23);
+		btnNewButton.setBounds(10, 176, 134, 23);
 		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnCourseCart = new JButton("Course Cart");
@@ -142,7 +139,7 @@ public class Student extends JFrame {
 				CourseCart.main(null);
 			}
 		});
-		btnCourseCart.setBounds(10, 88, 134, 23);
+		btnCourseCart.setBounds(10, 108, 134, 23);
 		frame.getContentPane().add(btnCourseCart);
 		
 		table_1 = new JTable();
@@ -162,24 +159,20 @@ public class Student extends JFrame {
 		lblCoursesRegistered.setBounds(219, 46, 134, 14);
 		frame.getContentPane().add(lblCoursesRegistered);
 		
-		btnViewGrades.addActionListener(new ActionListener()
-				{
-
-					@Override
-					public void actionPerformed(ActionEvent arg0) {
-
-						ViewGrades.viewGrades();
-						}
-				});
+		JButton btnRegisterCourses = new JButton("Register Courses");
+		btnRegisterCourses.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Register_student.main(null);
+			}
+		});
+		btnRegisterCourses.setBounds(10, 74, 134, 23);
+		frame.getContentPane().add(btnRegisterCourses);
 		
 		btnNewButton.addActionListener(new ActionListener()
 		{
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-
-//				Tutition_fee fee= new Tutition_fee();
-//				fee.tutitionFee();
 				Tutition_fee.main(null);
 				}
 		});

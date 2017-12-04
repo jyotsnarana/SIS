@@ -71,7 +71,7 @@ public class Transcript implements connectURL {
 		        transcriptlist list;
 		        while(rs.next())
 		        {
-		        	list=new transcriptlist(rs.getString("Term"), rs.getString("Course"), rs.getString("Description"), rs.getString("Grade"), rs.getString("GPA"), rs.getString("Grade Points"));
+		        	list=new transcriptlist(rs.getString("Term"), rs.getString("Course"), rs.getString("Description"), rs.getString("Grade"), rs.getString("GPA"), rs.getString("Term_GPA"));
 		        	usersList.add(list);
 		        }
 		}
@@ -87,7 +87,7 @@ public class Transcript implements connectURL {
 	{
 		ArrayList<transcriptlist> list_1= userList();
 		DefaultTableModel model=(DefaultTableModel)table.getModel();
-		Object[] row=new Object[5];
+		Object[] row=new Object[6];
 		for(int i=0;i<list_1.size();i++)
 		{
 			row[0]=list_1.get(i).getterm();
@@ -95,7 +95,7 @@ public class Transcript implements connectURL {
 			row[2]=list_1.get(i).getdescription();
 			row[3]=list_1.get(i).getgrade();
 			row[4]=list_1.get(i).getGPA();
-			//row[5]=list_1.get(i).getgrade_Points();
+			row[5]=list_1.get(i).getterm_GPA();
 			model.addRow(row);
 		}
 	}
@@ -110,6 +110,7 @@ public class Transcript implements connectURL {
 		frame.setBounds(100, 100, 603, 332);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setTitle("Unofficial Transcript");
 		
 		table = new JTable();
 		table.setToolTipText("");
@@ -117,10 +118,10 @@ public class Transcript implements connectURL {
 		table.setLocation(0, 11);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"Term", "Course", "Description", "Grade", "GPA"},
+				{"Term", "Course", "Description", "Grade", "GPA", "Term_GPA"},
 			},
 			new String[] {
-				"Term", "Course", "Description", "Grade", "GPA"
+				"Term", "Course", "Description", "Grade", "GPA", "Term_GPA"
 			}
 		));
 		table.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));

@@ -46,21 +46,18 @@ public class Admin extends JFrame{
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setTitle("ADMIN");
 		frame.getContentPane().setLayout(null);
-		JLabel lblAdmin = new JLabel("");
-		lblAdmin.setBounds(0, 0, 434, 261);
-		lblAdmin.setHorizontalAlignment(SwingConstants.CENTER);
-		frame.getContentPane().add(lblAdmin);
+		
 		
 		JButton btnViewTranscript = new JButton("View Transcript");
-		btnViewTranscript.setBounds(27, 186, 144, 23);
+		btnViewTranscript.setBounds(27, 165, 144, 23);
 		frame.getContentPane().add(btnViewTranscript);
 		
 		JButton btnChangeClassCapacity = new JButton("Change Class Capacity");
-		btnChangeClassCapacity.setBounds(27, 152, 144, 23);
+		btnChangeClassCapacity.setBounds(27, 106, 144, 23);
 		frame.getContentPane().add(btnChangeClassCapacity);
 		
 		JButton btnRegisterCourses = new JButton("Register Courses");
-		btnRegisterCourses.setBounds(27, 118, 144, 23);
+		btnRegisterCourses.setBounds(27, 40, 144, 23);
 		frame.getContentPane().add(btnRegisterCourses);
 		btnViewTranscript.addActionListener(new ActionListener() 
 		{

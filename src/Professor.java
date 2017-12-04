@@ -62,10 +62,5 @@ public class Professor {
 				ChangeGrade.changeGrade();
 			}
 		});
-	
-		
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setBounds(36, 25, 337, 14);
-		frame.getContentPane().add(lblNewLabel);
 	}
 }

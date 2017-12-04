@@ -54,20 +54,20 @@ public class Change_password extends JFrame {
 		JLabel Username = new JLabel("Username:");
 		Username.setSize(68, 14);
 		Username.setHorizontalAlignment(SwingConstants.LEFT);
-		Username.setLocation(29, 37);
+		Username.setLocation(91, 37);
 		contentPane.add(Username);
 		
 		textField = new JTextField();
-		textField.setBounds(141, 34, 111, 20);
+		textField.setBounds(206, 34, 111, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblPassword = new JLabel("New Password:");
-		lblPassword.setBounds(29, 95, 89, 14);
+		lblPassword.setBounds(88, 95, 89, 14);
 		contentPane.add(lblPassword);
 		
 		passwordField_ = new JPasswordField();
-		passwordField_.setBounds(141, 92, 111, 20);
+		passwordField_.setBounds(206, 92, 111, 20);
 		contentPane.add(passwordField_);
 		
 		JButton btnChange = new JButton("Change");
@@ -97,7 +97,7 @@ public class Change_password extends JFrame {
 			      }  
 			}
 		});
-		btnChange.setBounds(70, 160, 89, 23);
+		btnChange.setBounds(162, 168, 89, 23);
 		contentPane.add(btnChange);
 	}
 }

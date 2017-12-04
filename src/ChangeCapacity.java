@@ -46,11 +46,11 @@ public class ChangeCapacity extends JFrame {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.setTitle("Change Capacity");
+		frame.setTitle("Change Capacity");
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblCourse = new JLabel("Course");
-		lblCourse.setBounds(119, 44, 46, 14);
+		lblCourse.setBounds(110, 84, 46, 14);
 		frame.getContentPane().add(lblCourse);
 		
 		JLabel lblNewCapacity = new JLabel("New Capacity");
@@ -93,7 +93,7 @@ public class ChangeCapacity extends JFrame {
 		frame.getContentPane().add(btnUpdate);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(177, 41, 115, 20);
+		textField_1.setBounds(193, 81, 115, 20);
 		frame.getContentPane().add(textField_1);
 		textField_1.setColumns(10);
 	}

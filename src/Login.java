@@ -75,25 +75,25 @@ public class Login {
 		frame.getContentPane().add(lblNewLabel);
 		
 		JLabel lblUsername = new JLabel("Username:");
-		lblUsername.setBounds(138, 75, 62, 14);
+		lblUsername.setBounds(109, 75, 75, 14);
 		frame.getContentPane().add(lblUsername);
 		
 		textField = new JTextField();
-		textField.setBounds(210, 72, 86, 20);
+		textField.setBounds(194, 72, 86, 20);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Password:");
-		lblNewLabel_1.setBounds(138, 100, 52, 14);
+		lblNewLabel_1.setBounds(109, 100, 75, 14);
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		
 		passwordField_1 = new JPasswordField();
-		passwordField_1.setBounds(210, 97, 86, 20);
+		passwordField_1.setBounds(194, 97, 86, 20);
 		frame.getContentPane().add(passwordField_1);
 		
 		JComboBox<String> comboBox = new JComboBox<String>();
-		comboBox.setBounds(210, 129, 86, 20);
+		comboBox.setBounds(169, 125, 86, 20);
 		frame.getContentPane().add(comboBox);
 		comboBox.addItem("---Select---");
 		comboBox.addItem("Admin");
@@ -101,7 +101,7 @@ public class Login {
 		comboBox.addItem("Professor");
 		
 		JButton btnLogin = new JButton("Login In");
-		btnLogin.setBounds(138, 168, 89, 23);
+		btnLogin.setBounds(95, 156, 89, 23);
 		frame.getContentPane().add(btnLogin);
 		
 		JButton btnChangePassword = new JButton("Change Password");
@@ -113,7 +113,7 @@ public class Login {
 				
 			}
 		});
-		btnChangePassword.setBounds(251, 168, 131, 23);
+		btnChangePassword.setBounds(226, 156, 131, 23);
 		frame.getContentPane().add(btnChangePassword);
 		btnLogin.addActionListener(new ActionListener() {
 			  

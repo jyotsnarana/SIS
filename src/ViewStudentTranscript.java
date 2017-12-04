@@ -44,7 +44,7 @@ public class ViewStudentTranscript extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btnView = new JButton("View");
-		btnView.setBounds(163, 147, 89, 23);
+		btnView.setBounds(149, 136, 89, 23);
 		contentPane.add(btnView);
 		btnView.addActionListener(new ActionListener() 
 		{
@@ -57,11 +57,11 @@ public class ViewStudentTranscript extends JFrame {
 			});
 		
 		JLabel lblNewLabel = new JLabel("Student ID");
-		lblNewLabel.setBounds(117, 72, 76, 14);
+		lblNewLabel.setBounds(99, 72, 76, 14);
 		contentPane.add(lblNewLabel);
 		
 		textField = new JTextField();
-		textField.setBounds(210, 69, 86, 20);
+		textField.setBounds(197, 69, 86, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
 	}

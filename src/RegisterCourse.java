@@ -25,7 +25,8 @@ public class RegisterCourse {
 	private JTable table_1;
 	private JTextField textField;
 	private JButton btnAdd;
-	String term, course, description, professor, startdate, enddate, starttime, endtime;
+	String term, course, description;
+	private JButton btnDrop;
 	/**
 	 * Launch the application.
 	 */
@@ -115,10 +116,11 @@ public class RegisterCourse {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setTitle("Courses");
 
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 46, 414, 116);
+		scrollPane.setBounds(0, 46, 434, 141);
 		frame.getContentPane().add(scrollPane);
 		
 		table_1 = new JTable();
@@ -134,8 +136,18 @@ public class RegisterCourse {
 		scrollPane.setViewportView(table_1);
 		
 		btnAdd = new JButton("Add");
-		btnAdd.setBounds(165, 173, 89, 23);
+		btnAdd.setBounds(92, 198, 89, 23);
 		frame.getContentPane().add(btnAdd);
+		
+		btnDrop = new JButton("Drop");
+		btnDrop.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				admin_student.main(null);
+			}
+		});
+		btnDrop.setBounds(242, 198, 89, 23);
+		frame.getContentPane().add(btnDrop);
 
 		
 		btnAdd.addActionListener(new ActionListener() {
@@ -163,16 +175,18 @@ public class RegisterCourse {
 			    	 description= rs1.getString("Description");
 			    	 System.out.println(course);
 			     }
-				       
-				        String SQL = "INSERT INTO addcourse (Term, Course, Description) VALUES ('"+term+"','"+course+"','"+description+"') " ;
+				      
+				       // String SQL = "INSERT INTO addcourse (Term, Course, Description) VALUES ('"+term+"','"+course+"','"+description+"') " ;
+				        String SQL= "INSERT INTO addcourse(Term, Course, Description) SELECT t1.Term, t1.Course, t1.Description FROM register_student t1  WHERE NOT EXISTS(SELECT Term   FROM addcourse t2    WHERE t2.Term = t1.Term)";
+				        		  
+				        		                   
+				        		                  
 					    Statement   stmt = con.createStatement();  
 					    stmt.executeUpdate(SQL);
-					        
-					       
-				
-				
+					   
+				       
 				}catch(Exception ex) {
-					JOptionPane.showMessageDialog(null, "Course already taken");
+					JOptionPane.showMessageDialog(null, "Course not added");  	
 				}
 			}
 		});
