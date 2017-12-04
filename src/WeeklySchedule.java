@@ -9,11 +9,15 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class WeeklySchedule {
 
 	private JFrame frame;
 	private JTable table_1;
+	private JButton btnBack;
 	/**
 	 * frame to show the weekly schedule of the professor
 	 * uses database table "capacity"
@@ -98,10 +102,12 @@ public class WeeklySchedule {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		frame.setResizable(false);
 		frame.setTitle("Weekly Schedule");
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(193, 71, 210, 142);
+		scrollPane.setBounds(10, 11, 424, 155);
 		frame.getContentPane().add(scrollPane);
 		
 		table_1 = new JTable();
@@ -116,6 +122,16 @@ public class WeeklySchedule {
 		table_1.setRowSelectionAllowed(true);
 		
 		scrollPane.setViewportView(table_1);
+		
+		btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Professor.newScreen2();
+				frame.dispose();
+			}
+		});
+		btnBack.setBounds(329, 237, 89, 23);
+		frame.getContentPane().add(btnBack);
 	}
 
 }

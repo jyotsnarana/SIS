@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ChangeGrade extends JFrame {
 	private JFrame frame;
@@ -75,7 +77,7 @@ public class ChangeGrade extends JFrame {
 		frame.getContentPane().add(lblGrade);
 		
 		JButton btnNewButton = new JButton("update");
-		btnNewButton.setBounds(173, 200, 89, 23);
+		btnNewButton.setBounds(139, 160, 89, 23);
 		frame.getContentPane().add(btnNewButton);
 		
 		textField = new JTextField();
@@ -97,6 +99,16 @@ public class ChangeGrade extends JFrame {
 		textField_3.setColumns(10);
 		textField_3.setBounds(176, 114, 86, 20);
 		frame.getContentPane().add(textField_3);
+		
+		JButton btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Professor.newScreen2();
+				frame.dispose();
+			}
+		});
+		btnBack.setBounds(335, 227, 89, 23);
+		frame.getContentPane().add(btnBack);
 		
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override

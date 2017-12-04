@@ -44,6 +44,7 @@ public class Professor {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setResizable(false);
 		frame.setTitle("Professor");
 		frame.getContentPane().setLayout(null);
 		
@@ -51,6 +52,7 @@ public class Professor {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				WeeklySchedule.main(null);
+				frame.dispose();
 			}
 		});
 		btnNewButton.setBounds(123, 81, 206, 23);
@@ -62,6 +64,7 @@ public class Professor {
 		btnChangeGrades.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ChangeGrade.changeGrade();
+				frame.dispose();
 			}
 		});
 	}

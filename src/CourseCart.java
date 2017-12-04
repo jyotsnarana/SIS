@@ -20,6 +20,7 @@ public class CourseCart {
 	private JTable table_1;
 	private JButton btnDrop;
 	String term, course, description;
+	private JButton btnBack;
 	/**
 	 * Course cart added for student frame
 	 * database table "addcourse" used to show the courses taken.
@@ -111,6 +112,7 @@ public class CourseCart {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setResizable(false);
 		frame.setTitle("Student Cart");
 		frame.getContentPane().setLayout(null);
 		
@@ -174,5 +176,15 @@ public class CourseCart {
 		});
 		btnDrop.setBounds(167, 192, 89, 23);
 		frame.getContentPane().add(btnDrop);
+		
+		btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Student.newScreen1();
+				frame.dispose();
+			}
+		});
+		btnBack.setBounds(345, 237, 89, 23);
+		frame.getContentPane().add(btnBack);
 	}
 }

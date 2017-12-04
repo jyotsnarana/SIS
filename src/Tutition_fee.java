@@ -50,6 +50,7 @@ public class Tutition_fee extends JFrame {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setResizable(false);
 		frame.setTitle("Tutition Fee");
 		
 		JLabel lblNewLabel = new JLabel("DUE:");
@@ -110,8 +111,18 @@ public class Tutition_fee extends JFrame {
 		textField_4.setColumns(10);
 		
 		JButton btnNewButton_1 = new JButton("Go");
-		btnNewButton_1.setBounds(302, 30, 36, 23);
+		btnNewButton_1.setBounds(302, 30, 59, 23);
 		frame.getContentPane().add(btnNewButton_1);
+		
+		JButton btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Student.newScreen1();
+				frame.dispose();
+			}
+		});
+		btnBack.setBounds(345, 237, 89, 23);
+		frame.getContentPane().add(btnBack);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			  
 			@Override

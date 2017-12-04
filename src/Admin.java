@@ -46,6 +46,7 @@ public class Admin extends JFrame{
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setTitle("ADMIN");
+		frame.setResizable(false);
 		frame.getContentPane().setLayout(null);
 		
 		
@@ -60,6 +61,15 @@ public class Admin extends JFrame{
 		JButton btnRegisterCourses = new JButton("Register Courses");
 		btnRegisterCourses.setBounds(113, 39, 171, 23);
 		frame.getContentPane().add(btnRegisterCourses);
+		
+		JButton btnDropCourses = new JButton("Drop Courses");
+		btnDropCourses.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				admin_student.main(null);
+			}
+		});
+		btnDropCourses.setBounds(113, 221, 171, 23);
+		frame.getContentPane().add(btnDropCourses);
 		btnViewTranscript.addActionListener(new ActionListener() 
 		{
 			  

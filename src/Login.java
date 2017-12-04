@@ -68,6 +68,7 @@ public class Login {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(false);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("STUDENT INFORMATION SYSTEM");
@@ -112,6 +113,7 @@ public class Login {
 			public void mouseClicked(MouseEvent arg0) {   
 				Change_password change= new Change_password();
 				change.changePassword();
+				frame.dispose();
 				
 			}
 		});

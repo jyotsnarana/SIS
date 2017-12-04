@@ -115,10 +115,11 @@ public class Student extends JFrame {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setResizable(false);
 		frame.setTitle("STUDENT");
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(193, 71, 210, 142);
+		scrollPane.setBounds(154, 71, 280, 142);
 		frame.getContentPane().add(scrollPane);
 		
 		JButton btnTranscript = new JButton("Transcript");
@@ -146,6 +147,7 @@ public class Student extends JFrame {
 		btnCourseCart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				CourseCart.main(null);
+				frame.dispose();
 			}
 		});
 		btnCourseCart.setBounds(10, 108, 134, 23);
@@ -172,6 +174,7 @@ public class Student extends JFrame {
 		btnRegisterCourses.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Register_student.main(null);
+				frame.dispose();
 			}
 		});
 		btnRegisterCourses.setBounds(10, 74, 134, 23);
@@ -183,6 +186,7 @@ public class Student extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Tutition_fee.main(null);
+				frame.dispose();
 				}
 		});
 	}

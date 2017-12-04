@@ -20,6 +20,7 @@ public class Register_student {
 	private JFrame frame;
 	private JButton btnAdd;
 	String term, course, description;
+	private JButton btnBack;
 
 	/**
 	 * Student registration done by student only
@@ -123,6 +124,7 @@ public class Register_student {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setTitle("Course Registration");
+		frame.setResizable(false);
 		frame.getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -170,19 +172,31 @@ public class Register_student {
 				    	   JOptionPane.showMessageDialog(null, "Cannot register");  
 				       }
 				       else {
+				    	  // String SQL = "INSERT INTO addcourse (Term, Course, Description) VALUES ('"+term+"','"+course+"','"+description+"') " ;
 				    	   String SQL= "INSERT INTO addcourse(Term, Course, Description) SELECT t1.Term, t1.Course, t1.Description FROM register_student t1  WHERE NOT EXISTS(SELECT Term   FROM addcourse t2    WHERE t2.Term = t1.Term)";
 					    Statement   stmt = con.createStatement();  
 					    stmt.executeUpdate(SQL);
 					  
 				       }
+			     
 				}catch(Exception ex) {
-					
+					JOptionPane.showMessageDialog(null, "Course already taken"); 
 				}
 			
 			}
 		});
-		btnAdd.setBounds(162, 210, 89, 23);
+		btnAdd.setBounds(171, 191, 89, 23);
 		frame.getContentPane().add(btnAdd);
+		
+		btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Student.newScreen1();
+				frame.dispose();
+			}
+		});
+		btnBack.setBounds(345, 237, 89, 23);
+		frame.getContentPane().add(btnBack);
 	}
 
 }

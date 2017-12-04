@@ -116,6 +116,7 @@ public class Transcript implements connectURL {
 		frame.setBounds(100, 100, 603, 332);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setResizable(false);
 		frame.setTitle("Unofficial Transcript");
 		
 		table = new JTable();

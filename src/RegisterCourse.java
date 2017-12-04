@@ -127,6 +127,7 @@ public class RegisterCourse {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setResizable(false);
 		frame.setTitle("Courses");
 
 		
@@ -147,18 +148,18 @@ public class RegisterCourse {
 		scrollPane.setViewportView(table_1);
 		
 		btnAdd = new JButton("Add");
-		btnAdd.setBounds(92, 198, 89, 23);
+		btnAdd.setBounds(173, 198, 89, 23);
 		frame.getContentPane().add(btnAdd);
 		
-		btnDrop = new JButton("Drop");
-		btnDrop.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				admin_student.main(null);
-			}
-		});
-		btnDrop.setBounds(242, 198, 89, 23);
-		frame.getContentPane().add(btnDrop);
+//		btnDrop = new JButton("Drop");
+//		btnDrop.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				
+//				admin_student.main(null);
+//			}
+//		});
+//		btnDrop.setBounds(297, 198, 89, 23);
+//		frame.getContentPane().add(btnDrop);
 
 		
 		btnAdd.addActionListener(new ActionListener() {
