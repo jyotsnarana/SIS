@@ -2,8 +2,6 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.Statement;
 
 import javax.swing.JFrame;
@@ -121,12 +119,10 @@ public class ChangeGrade extends JFrame {
     		}else {
 				try 
 				{
-						Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");  
-				 		String connectionUrl = "jdbc:sqlserver://localhost:1433;" +  
-				         "databaseName=sis_db;user=sa;password=jyotsna";  
-				 		con = DriverManager.getConnection(connectionUrl);  
-				 		
-				 		// Create and execute an SQL statement that returns some data.
+						con = new SQLConnection().getConnection();
+
+						// Create and execute an SQL statement that returns some data.
+						// TODO remove hardcode value of soen6441 make it dynamic
 				 		String SQL = "update soen6441 set Grade= '"+ textField_3.getText().toUpperCase() +"' where StudentID = '"+textField_2.getText()+"' ";
 				 		stmt = con.createStatement(); 
 				 	    System.out.println(textField_3.getText());

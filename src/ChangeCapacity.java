@@ -10,8 +10,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -73,10 +71,7 @@ public class ChangeCapacity extends JFrame {
 				     // ResultSet rs = null;  
 					try 
 					{
-							Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");  
-					 		String connectionUrl = "jdbc:sqlserver://localhost:1433;" +  
-					         "databaseName=sis_db;user=sa;password=jyotsna";  
-					 		con = DriverManager.getConnection(connectionUrl);  
+							con = new SQLConnection().getConnection();
 					
 					 		// Create and execute an SQL statement that returns some data.
 					 		String SQL = "update capacity set Capacity= "+ textField.getText() +" where Course = '"+textField_1.getText().toUpperCase()+"' ";

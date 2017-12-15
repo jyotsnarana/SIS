@@ -13,8 +13,6 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -26,7 +24,8 @@ import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
 import java.sql.*;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;  
+import java.awt.event.MouseEvent;
+
 public class Login {
 
 	private JFrame frame;
@@ -127,14 +126,11 @@ public class Login {
 				PreparedStatement stmt = null;  
 			      ResultSet rs = null;  
 				try {
-				 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");  
-				 String connectionUrl = "jdbc:sqlserver://localhost:1433;" +  
-				         "databaseName=sis_db;user=sa;password=jyotsna";  
-				 con = DriverManager.getConnection(connectionUrl);  
-				
+					con = new SQLConnection().getConnection();
+
 				 // Create and execute an SQL statement that returns some data.
-				 String SQL = "SELECT * FROM login_1 where username=? and password=?";  
-		        //stmt = con.createStatement();  
+				 String SQL = "SELECT * FROM login_1 where username=? and password=?";
+
 		        stmt=con.prepareStatement(SQL);
 		        stmt.setString(1,textField.getText());
 		        stmt.setString(2,passwordField_1.getText());
@@ -142,11 +138,11 @@ public class Login {
 		        if(rs.next())
 		        {
 		        	//JOptionPane.showMessageDialog(null, "Username and password successfull");
-		        	
+
 		        	   if( (comboBox.getSelectedItem()== "Admin") && (textField.getText().equals("admin"))  )
 					   {
 						 Admin.newScreen();
-					   }	
+					   }
 		        	   else if((comboBox.getSelectedItem()== "Student") && (textField.getText().equals("student")))
 						{
 							Student.newScreen1();
@@ -156,7 +152,7 @@ public class Login {
 							Professor.newScreen2();
 						}
 		        	   else
-		        		   JOptionPane.showMessageDialog(null, "Wrong username");   
+		        		   JOptionPane.showMessageDialog(null, "Wrong username");
 		             }
 		        else
 		        {

@@ -7,7 +7,9 @@ import javax.swing.JLabel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.SwingConstants;
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.jgoodies.forms.layout.FormLayout;
@@ -21,8 +23,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.ListSelectionModel; 
-public class Transcript implements connectURL {
+import javax.swing.ListSelectionModel;
+
+public class Transcript {
 
 	private JFrame frame;
 	private JTable table;
@@ -66,10 +69,8 @@ public class Transcript implements connectURL {
 	      Statement stmt = null;  
 	      ResultSet rs = null;  
 		try {
-			 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");  
-			 String connectionUrl = "jdbc:sqlserver://localhost:1433;" +  
-			         "databaseName=sis_db;user=sa;password=jyotsna";  
-			 con = DriverManager.getConnection(connectionUrl);  
+			con = new SQLConnection().getConnection();
+
 			 String SQL = "SELECT * FROM transcript";  
 		        stmt = con.createStatement();  
 		        rs = stmt.executeQuery(SQL);

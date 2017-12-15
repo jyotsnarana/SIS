@@ -54,11 +54,9 @@ public class WeeklySchedule {
 	      Statement stmt = null;  
 	      ResultSet rs = null;  
 		try {
-			 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");  
-			 String connectionUrl = "jdbc:sqlserver://localhost:1433;" +  
-			         "databaseName=sis_db;user=sa;password=jyotsna";  
-			 con = DriverManager.getConnection(connectionUrl);  
-			 String SQL = "SELECT * FROM capacity";  
+			 con = new SQLConnection().getConnection();
+
+			 String SQL = "SELECT * FROM capacity";
 		        stmt = con.createStatement();  
 		        rs = stmt.executeQuery(SQL);
 		        capacitylist list;

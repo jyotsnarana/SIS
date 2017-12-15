@@ -67,14 +67,9 @@ public class Student extends JFrame {
 					      ResultSet rs = null;
 		try 
 		{
-			
-			 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");  
-			 String connectionUrl = "jdbc:sqlserver://localhost:1433;" +  
-			         "databaseName=sis_db;user=sa;password=jyotsna";  
-			 con = DriverManager.getConnection(connectionUrl);  
-			
-			 
-			       
+
+						con = new SQLConnection().getConnection();
+
 			        	String SQL = "SELECT * FROM addcourse" ;
 				        stmt = con.createStatement();  
 				        rs = stmt.executeQuery(SQL);

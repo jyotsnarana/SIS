@@ -1,6 +1,4 @@
 import java.awt.EventQueue;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -62,14 +60,9 @@ public class CourseCart {
 					      ResultSet rs = null;
 		try 
 		{
-			
-			 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");  
-			 String connectionUrl = "jdbc:sqlserver://localhost:1433;" +  
-			         "databaseName=sis_db;user=sa;password=jyotsna";  
-			 con = DriverManager.getConnection(connectionUrl);  
-			
-			 
-			       
+
+						con = new SQLConnection().getConnection();
+
 			        	String SQL = "SELECT * FROM addcourse" ;
 				        stmt = con.createStatement();  
 				        rs = stmt.executeQuery(SQL);
@@ -144,10 +137,10 @@ public class CourseCart {
 					int rowNum= table_1.getSelectedRow();
 				String Course=(String) table_1.getValueAt(rowNum, 1);
 				
-				 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");  
-				 String connectionUrl = "jdbc:sqlserver://localhost:1433;" +  
-				         "databaseName=sis_db;user=sa;password=jyotsna";  
-				Connection con = DriverManager.getConnection(connectionUrl);  
+				 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+				 String connectionUrl = "jdbc:sqlserver://localhost:1433;" +
+				         "databaseName=sis_db;user=sa;password=jyotsna";
+				Connection con = DriverManager.getConnection(connectionUrl);
 				
 				String SQL1 = "select * from register_student Where Course='"+Course+"'" ;
 			    Statement   stmt1 = con.createStatement();  

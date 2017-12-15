@@ -12,7 +12,9 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JButton;
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
@@ -83,12 +85,9 @@ public class Change_password extends JFrame {
 			     // ResultSet rs = null;  
 				try 
 				{
-						Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");  
-				 		String connectionUrl = "jdbc:sqlserver://localhost:1433;" +  
-				         "databaseName=sis_db;user=sa;password=jyotsna";  
-				 		con = DriverManager.getConnection(connectionUrl);  
-				
-				 		// Create and execute an SQL statement that returns some data.
+						con = new SQLConnection().getConnection();
+
+						// Create and execute an SQL statement that returns some data.
 				 		String SQL = "update login_1 set password= "+Integer.valueOf(passwordField_.getText()).intValue()+" where username = '"+textField.getText()+"' ";
 				 		stmt = con.createStatement(); 
 				 	
