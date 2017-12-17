@@ -1,6 +1,7 @@
 import java.awt.EventQueue;
-import java.sql.ResultSet;
-import java.sql.Statement;
+//import java.sql.ResultSet;
+//import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -143,7 +144,7 @@ public class Register_student {
 					int rowNum= table_1.getSelectedRow();
 				String Course=(String) table_1.getValueAt(rowNum, 1);
 
-					con = new SQLConnection().getConnection();
+					Connection con = new SQLConnection().getConnection();
 
 				String SQL1 = "select * from register_student Where Course='"+Course+"'" ;
 			    Statement   stmt1 = con.createStatement();  

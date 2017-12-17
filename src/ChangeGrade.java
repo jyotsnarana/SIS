@@ -2,7 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Statement;
+import java.sql.*;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -24,7 +24,7 @@ public class ChangeGrade extends JFrame {
 	/**
 	 * Changing grade by professor only.
 	 * updates the database table "soen6441".
-	 * @author jyotsna
+	 * @author jyotsna, parisanikzad
 	 */
 	public static void changeGrade() {
 		EventQueue.invokeLater(new Runnable() {
@@ -111,8 +111,8 @@ public class ChangeGrade extends JFrame {
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Connection con = null;  
-			Statement stmt = null;  
+				Connection con = null;
+			Statement stmt = null;
 			if((textField_3.getText().toString().trim().length()== 0) && (textField_2.getText().toString().trim().length()== 0 ))
     		{
     			JOptionPane.showMessageDialog(null, "Fill the fields for updation");	

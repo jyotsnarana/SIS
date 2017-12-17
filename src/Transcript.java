@@ -7,9 +7,10 @@ import javax.swing.JLabel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.SwingConstants;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+//import java.sql.PreparedStatement;
+//import java.sql.ResultSet;
+//import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 import com.jgoodies.forms.layout.FormLayout;

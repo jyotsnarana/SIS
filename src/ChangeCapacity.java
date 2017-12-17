@@ -10,9 +10,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
+//import java.sql.PreparedStatement;
+//import java.sql.ResultSet;
+//import java.sql.Statement;
 import java.awt.event.ActionEvent;
 
 public class ChangeCapacity extends JFrame {
