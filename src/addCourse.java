@@ -4,25 +4,49 @@
  *
  */
 public class addCourse {
-	private String term, course, description;
+	private String courseId, courseName, semester, professor, time, room, capacity;
 	
-	public addCourse(String term, String course, String description)
+	public addCourse(String courseId, String courseName, String semester, String professor, String time, String room, String capacity)
 	{
-		this.term=term;
-		this.course=course;
-		this.description=description;
-		
+
+		this.courseId = courseId;
+		this.courseName = courseName;
+		this.semester = semester;
+		this.professor=professor;
+		this.time=time;
+		this.room=room;
+		this.capacity=capacity;
+
+
+
 	}
-	public String getterm()
+	public String getCourseId()
 	{
-		return term;
+		return courseId;
 	}
-	public String getcourse()
+	public String getCourseName()
 	{
-		return course;
+		return courseName;
 	}
-	public String getdescription()
+	public String getSemester()
 	{
-		return description;
+		return semester;
 	}
+	public String getProfessor()
+	{
+		return professor;
+	}
+	public String getTime()
+	{
+		return time;
+	}
+	public String getRoom()
+	{
+		return room;
+	}
+	public String getCapacity()
+	{
+		return capacity;
+	}
+
 }

@@ -50,47 +50,47 @@ public class ChangeCapacity extends JFrame {
 		frame.setResizable(false);
 		frame.setTitle("Change Capacity");
 		frame.getContentPane().setLayout(null);
-		
+
 		JLabel lblCourse = new JLabel("Course");
 		lblCourse.setBounds(110, 84, 46, 14);
 		frame.getContentPane().add(lblCourse);
-		
+
 		JLabel lblNewCapacity = new JLabel("New Capacity");
 		lblNewCapacity.setBounds(97, 133, 86, 14);
 		frame.getContentPane().add(lblNewCapacity);
-		
+
 		textField = new JTextField();
 		textField.setBounds(193, 130, 102, 20);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
-		
+
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Connection con = null;  
-				Statement stmt = null;  
-				     // ResultSet rs = null;  
-					try 
+				Connection con = null;
+				Statement stmt = null;
+				     // ResultSet rs = null;
+					try
 					{
 							con = new SQLConnection().getConnection();
-					
+
 					 		// Create and execute an SQL statement that returns some data.
 					 		String SQL = "update capacity set Capacity= "+ textField.getText() +" where Course = '"+textField_1.getText().toUpperCase()+"' ";
-					 		stmt = con.createStatement(); 
-					 	
+					 		stmt = con.createStatement();
+
 			        		stmt.executeUpdate(SQL);
 			        		JOptionPane.showMessageDialog(null, "Database updated");
 			       }
 					catch (Exception e1)
-					{  
+					{
 						 JOptionPane.showMessageDialog(null,e1);
-				      }  
+				      }
 				}
-		
+
 		});
 		btnUpdate.setBounds(148, 182, 115, 23);
 		frame.getContentPane().add(btnUpdate);
-		
+
 		textField_1 = new JTextField();
 		textField_1.setBounds(193, 81, 115, 20);
 		frame.getContentPane().add(textField_1);

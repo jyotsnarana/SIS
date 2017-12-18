@@ -43,21 +43,21 @@ public class WeeklySchedule {
 		initialize();
 		show_list();
 	}
-	
+
 	/**
 	 * connection string used to extract contents from the capacity table.
 	 * @return rows from table capacity
 	 */
 	public ArrayList<capacitylist> userList(){
 		ArrayList<capacitylist> usersList=new ArrayList<>();
-		Connection con = null;  
-	      Statement stmt = null;  
-	      ResultSet rs = null;  
+		Connection con = null;
+	      Statement stmt = null;
+	      ResultSet rs = null;
 		try {
 			 con = new SQLConnection().getConnection();
 
 			 String SQL = "SELECT * FROM capacity";
-		        stmt = con.createStatement();  
+		        stmt = con.createStatement();
 		        rs = stmt.executeQuery(SQL);
 		        capacitylist list;
 		        while(rs.next())
@@ -66,13 +66,13 @@ public class WeeklySchedule {
 		        	usersList.add(list);
 		        }
 		}
-		 catch (Exception e) {  
-	         e.printStackTrace();  
+		 catch (Exception e) {
+	         e.printStackTrace();
 	      }
 		return usersList;
 	}
-	
-	
+
+
 	/**
 	 * showing contents of database table capacity
 	 */
@@ -103,11 +103,11 @@ public class WeeklySchedule {
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 		frame.setTitle("Weekly Schedule");
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 11, 424, 155);
 		frame.getContentPane().add(scrollPane);
-		
+
 		table_1 = new JTable();
 		table_1.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -116,11 +116,11 @@ public class WeeklySchedule {
 				"Course", "Description", "Schedule", "Time", "Room", "Capacity"
 			}
 		));
-		
+
 		table_1.setRowSelectionAllowed(true);
-		
+
 		scrollPane.setViewportView(table_1);
-		
+
 		btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

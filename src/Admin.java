@@ -48,20 +48,20 @@ public class Admin extends JFrame{
 		frame.setTitle("ADMIN");
 		frame.setResizable(false);
 		frame.getContentPane().setLayout(null);
-		
-		
+
+
 		JButton btnViewTranscript = new JButton("View Transcript");
 		btnViewTranscript.setBounds(113, 165, 171, 23);
 		frame.getContentPane().add(btnViewTranscript);
-		
+
 		JButton btnChangeClassCapacity = new JButton("Change Class Capacity");
 		btnChangeClassCapacity.setBounds(113, 107, 171, 23);
 		frame.getContentPane().add(btnChangeClassCapacity);
-		
+
 		JButton btnRegisterCourses = new JButton("Register Courses");
 		btnRegisterCourses.setBounds(113, 39, 171, 23);
 		frame.getContentPane().add(btnRegisterCourses);
-		
+
 		JButton btnDropCourses = new JButton("Drop Courses");
 		btnDropCourses.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -70,32 +70,32 @@ public class Admin extends JFrame{
 		});
 		btnDropCourses.setBounds(113, 221, 171, 23);
 		frame.getContentPane().add(btnDropCourses);
-		btnViewTranscript.addActionListener(new ActionListener() 
+		btnViewTranscript.addActionListener(new ActionListener()
 		{
-			  
+
 			@Override
-			public void actionPerformed(ActionEvent arg0) 
+			public void actionPerformed(ActionEvent arg0)
 			{
 				ViewStudentTranscript.main();
-			}	
+			}
 			});
-		btnChangeClassCapacity.addActionListener(new ActionListener() 
+		btnChangeClassCapacity.addActionListener(new ActionListener()
 		{
-			  
+
 			@Override
-			public void actionPerformed(ActionEvent arg0) 
+			public void actionPerformed(ActionEvent arg0)
 			{
 				ChangeCapacity.main(null);
-			}	
+			}
 			});
-		btnRegisterCourses.addActionListener(new ActionListener() 
+		btnRegisterCourses.addActionListener(new ActionListener()
 		{
-			  
+
 			@Override
-			public void actionPerformed(ActionEvent arg0) 
+			public void actionPerformed(ActionEvent arg0)
 			{
 				RegisterCourse.main();
-			}	
+			}
 			});
 	}
 }

@@ -73,14 +73,18 @@ public class RegisterCourse {
 			
 			 
 			       
-			        	String SQL = "SELECT * FROM register_student" ;
+//			        	String SQL = "SELECT * FROM register_student" ;
+						String SQL = "SELECT * FROM schedule JOIN courses on courseId = courses.Id" ;
+						System.out.println(SQL);
 				        stmt = con.createStatement();  
 				        rs = stmt.executeQuery(SQL);
 				        registerList list;
 				        while(rs.next())
 				        {
-				        	list=new registerList(rs.getString("Term"), rs.getString("Course"), rs.getString("Description"), rs.getString("Professor"), rs.getString("Start date"), rs.getString("End date"), rs.getString("Start time"), rs.getString("End time"), rs.getString("Vacancy"));
-				        	usersList.add(list);
+
+				        	list=new registerList(rs.getString("CourseId"), rs.getString("CourseName"), rs.getString("Semester"), rs.getString("Professor"), rs.getString("Time"), rs.getString("Room"), rs.getString("Capacity"));
+//							list=new registerList(rs.getString("CourseId"), rs.getString("CourseName"), rs.getString("Semester"), rs.getString("Time"), rs.getString("Room"), rs.getString("Capacity"));
+							usersList.add(list);
 				        }
 			
 			 }     
@@ -101,15 +105,13 @@ public class RegisterCourse {
 		Object[] row=new Object[9];
 		for(int i=0;i<list_1.size();i++)
 		{
-			row[0]=list_1.get(i).getterm();
-			row[1]=list_1.get(i).getcourse();
-			row[2]=list_1.get(i).getdescription();
-			row[3]=list_1.get(i).getprofessor();
-			row[4]=list_1.get(i).getstartdate();
-			row[5]=list_1.get(i).getenddate();
-			row[6]=list_1.get(i).getstarttime();
-			row[7]=list_1.get(i).getendtime();
-			row[8]=list_1.get(i).getvacancy();
+			row[0]=list_1.get(i).getCourseId();
+			row[1]=list_1.get(i).getCourseName();
+			row[2]=list_1.get(i).getSemester();
+			row[3]=list_1.get(i).getProfessor();
+			row[4]=list_1.get(i).getTime();
+			row[5]=list_1.get(i).getRoom();
+			row[6]=list_1.get(i).getCapacity();
 			model.addRow(row);
 		}
 	}

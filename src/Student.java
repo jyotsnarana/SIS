@@ -28,7 +28,7 @@ public class Student extends JFrame {
 	 * student login frame
 	 * using addcourse class to show the contents in the table
 	 * @see addcourse
-	 * @author jyotsna
+	 * @author jyotsna, parisanikzad
 	 */
 	public static void newScreen1() {
 		EventQueue.invokeLater(new Runnable() {
@@ -37,6 +37,9 @@ public class Student extends JFrame {
 					Student window = new Student();
 					window.frame.setVisible(true);
 					//window.frame.setResizable(false);
+					System.out.println("CURRENT USER ID " + currentUser.id);
+					System.out.println("CURRENT USER TYPE " + currentUser.type);
+					System.out.println("CURRENT USER NAME " + currentUser.name);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -70,13 +73,15 @@ public class Student extends JFrame {
 
 						con = new SQLConnection().getConnection();
 
-			        	String SQL = "SELECT * FROM addcourse" ;
+			        	//String SQL = "SELECT * FROM addcourse" ;
+						String SQL = "SELECT * FROM student_course sc JOIN course c ON c.id = sc.CourseId WHERE StudentId = " + currentUser.id;
 				        stmt = con.createStatement();  
 				        rs = stmt.executeQuery(SQL);
 				        addCourse list;
 				        while(rs.next())
 				        {
-				        	list=new addCourse(rs.getString("Term"), rs.getString("Course"), rs.getString("Description"));
+//				        	list=new addCourse(rs.getString("Term"), rs.getString("Course"), rs.getString("Description"));
+							list=new addCourse(rs.getString("CourseId"), rs.getString("CourseName"), rs.getString("Semester"), rs.getString("Professor"), rs.getString("Time"), rs.getString("Room"), rs.getString("Capacity"));
 				        	usersList.add(list);
 				        }
 			
@@ -94,12 +99,16 @@ public class Student extends JFrame {
 	{
 		ArrayList<addCourse> list_1= userList();
 		DefaultTableModel model=(DefaultTableModel)table_1.getModel();
-		Object[] row=new Object[9];
+		Object[] row=new Object[7];
 		for(int i=0;i<list_1.size();i++)
 		{
-			row[0]=list_1.get(i).getterm();
-			row[1]=list_1.get(i).getcourse();
-			row[2]=list_1.get(i).getdescription();
+			row[0]=list_1.get(i).getCourseId();
+			row[1]=list_1.get(i).getCourseName();
+			row[2]=list_1.get(i).getSemester();
+			row[3]=list_1.get(i).getProfessor();
+			row[4]=list_1.get(i).getTime();
+			row[5]=list_1.get(i).getRoom();
+			row[6]=list_1.get(i).getCapacity();
 			model.addRow(row);
 		}
 	}

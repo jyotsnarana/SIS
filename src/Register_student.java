@@ -66,13 +66,14 @@ public class Register_student {
 
 						con = new SQLConnection().getConnection();
 
-			        	String SQL = "SELECT * FROM register_student" ;
+			        	String SQL = "SELECT * FROM course" ;
 				        stmt = con.createStatement();  
 				        rs = stmt.executeQuery(SQL);
 				        registerList list;
 				        while(rs.next())
 				        {
-				        	list=new registerList(rs.getString("Term"), rs.getString("Course"), rs.getString("Description"), rs.getString("Professor"), rs.getString("Start date"), rs.getString("End date"), rs.getString("Start time"), rs.getString("End time"), rs.getString("Vacancy"));
+//				        	list=new registerList(rs.getString("Term"), rs.getString("Course"), rs.getString("Description"), rs.getString("Professor"), rs.getString("Start date"), rs.getString("End date"), rs.getString("Start time"), rs.getString("End time"), rs.getString("Vacancy"));
+							list=new registerList(rs.getString("CourseId"), rs.getString("CourseName"), rs.getString("Semester"), rs.getString("Professor"), rs.getString("Time"), rs.getString("Room"), rs.getString("Capacity"));
 				        	usersList.add(list);
 				        }
 			
@@ -94,15 +95,13 @@ public class Register_student {
 		Object[] row=new Object[9];
 		for(int i=0;i<list_1.size();i++)
 		{
-			row[0]=list_1.get(i).getterm();
-			row[1]=list_1.get(i).getcourse();
-			row[2]=list_1.get(i).getdescription();
-			row[3]=list_1.get(i).getprofessor();
-			row[4]=list_1.get(i).getstartdate();
-			row[5]=list_1.get(i).getenddate();
-			row[6]=list_1.get(i).getstarttime();
-			row[7]=list_1.get(i).getendtime();
-			row[8]=list_1.get(i).getvacancy();
+			row[0]=list_1.get(i).getCourseId();
+			row[1]=list_1.get(i).getCourseName();
+			row[2]=list_1.get(i).getSemester();
+			row[3]=list_1.get(i).getProfessor();
+			row[4]=list_1.get(i).getTime();
+			row[5]=list_1.get(i).getRoom();
+			row[6]=list_1.get(i).getCapacity();
 			model.addRow(row);
 		}
 	}
@@ -130,7 +129,7 @@ public class Register_student {
 			new Object[][] {
 			},
 			new String[] {
-				"Term","Course", "Description", "Professor", "Start", "End", "Start Time", "End Time", "Vacancy"
+				"Course Id","Course Name", "Semester", "Professor", "Time", "Room", "Capacity"
 			}
 		));
 		
@@ -142,35 +141,56 @@ public class Register_student {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					int rowNum= table_1.getSelectedRow();
-				String Course=(String) table_1.getValueAt(rowNum, 1);
+				String CourseId=(String) table_1.getValueAt(rowNum, 0);
+				String Semester=(String) table_1.getValueAt(rowNum, 2);
 
-					Connection con = new SQLConnection().getConnection();
+				Connection con = new SQLConnection().getConnection();
 
-				String SQL1 = "select * from register_student Where Course='"+Course+"'" ;
-			    Statement   stmt1 = con.createStatement();  
-			     ResultSet   rs1 = stmt1.executeQuery(SQL1);
-			     
-			   
-			     
-			     while(rs1.next()) {
-			    	 term= rs1.getString("Term");
-			    	 course= rs1.getString("Course");
-			    	 description= rs1.getString("Description");
-			    	 System.out.println(course);
-			     }
-				       if (course.equalsIgnoreCase("INSE6260  "))
-				       {
-				    	   JOptionPane.showMessageDialog(null, "Cannot register");  
-				       }
-				       else {
-				    	  // String SQL = "INSERT INTO addcourse (Term, Course, Description) VALUES ('"+term+"','"+course+"','"+description+"') " ;
-				    	   String SQL= "INSERT INTO addcourse(Term, Course, Description) SELECT t1.Term, t1.Course, t1.Description FROM register_student t1  WHERE NOT EXISTS(SELECT Term   FROM addcourse t2    WHERE t2.Term = t1.Term)";
-					    Statement   stmt = con.createStatement();  
-					    stmt.executeUpdate(SQL);
-					  
-				       }
+//				String SQL1 = "select * from register_student Where Course='"+Course+"'" ;
+//					CourseId = COMP6311; unique id = 1;
+
+ 				String SQL1 = "select * from course Where CourseId='"+CourseId+"' AND Semester='"+Semester+"'";
+			    Statement   stmt1 = con.createStatement();
+			    ResultSet   rs1 = stmt1.executeQuery(SQL1);
+
+					int courseIdentifier = 0;
+					while(rs1.next()) {
+						courseIdentifier= rs1.getInt("Id");
+					}
+
+				String SQL3 = "SELECT * FROM student_course WHERE StudentId = '" + currentUser.id + "' AND  CourseId =" + courseIdentifier + "";
+				Statement   stmt3 = con.createStatement();
+				ResultSet   rs3 = stmt3.executeQuery(SQL3);
+
+				while(rs3.next()) {
+					if(rs3.getInt("CourseId") == courseIdentifier && rs3.getInt("StudentId") == currentUser.id) {
+						throw new Exception();
+					}
+				}
+
+				String SQL2=  "INSERT INTO student_course(StudentId, CourseId) VALUES ( '" + currentUser.id + "', " + courseIdentifier + ")";
+
+				Statement   stmt2 = con.createStatement();
+				stmt2.executeUpdate(SQL2);
+
+//			     while(rs1.next()) {
+//			    	 int id= rs1.getInt("Id");
+//			     }
+//				       if (course.equalsIgnoreCase("INSE6260  "))
+//				       {
+//				    	   JOptionPane.showMessageDialog(null, "Cannot register");
+//				       }
+//				       else {
+//				    	  // String SQL = "INSERT INTO addcourse (Term, Course, Description) VALUES ('"+term+"','"+course+"','"+description+"') " ;
+//						   String SQL= "INSERT INTO student_course(StudentId, CourseId) SELECT students.StudentId, course.CourseId FROM students, course WHERE NOT EXISTS(SELECT StudentId, CourseId FROM students_course sc WHERE sc.StudentId = ? AND sc.CourseId = ?)";
+////				    	   String SQL= "INSERT INTO addcourse(Term, Course, Description) SELECT t1.Term, t1.Course, t1.Description FROM register_student t1  WHERE NOT EXISTS(SELECT Term   FROM addcourse t2    WHERE t2.Term = t1.Term)";
+//					    Statement   stmt = con.createStatement();
+//					    stmt.executeUpdate(SQL);
+//
+//				       }
 			     
 				}catch(Exception ex) {
+					ex.printStackTrace();
 					JOptionPane.showMessageDialog(null, "Course already taken"); 
 				}
 			

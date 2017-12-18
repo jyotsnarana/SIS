@@ -30,7 +30,7 @@ public class Transcript {
 
 	private JFrame frame;
 	private JTable table;
-	
+
 
 	/**
 	 * showing the transcript of the student.
@@ -49,11 +49,11 @@ public class Transcript {
 			}
 		});
 	}
-	
+
 	/**
 	 * Create the application.
 	 * connecting database
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	public Transcript() throws SQLException {
 		initialize();
@@ -66,14 +66,14 @@ public class Transcript {
 	 */
 	public ArrayList<transcriptlist> userList(){
 		ArrayList<transcriptlist> usersList=new ArrayList<>();
-		Connection con = null;  
-	      Statement stmt = null;  
-	      ResultSet rs = null;  
+		Connection con = null;
+	      Statement stmt = null;
+	      ResultSet rs = null;
 		try {
 			con = new SQLConnection().getConnection();
 
-			 String SQL = "SELECT * FROM transcript";  
-		        stmt = con.createStatement();  
+			 String SQL = "SELECT * FROM transcript";
+		        stmt = con.createStatement();
 		        rs = stmt.executeQuery(SQL);
 		        transcriptlist list;
 		        while(rs.next())
@@ -82,12 +82,12 @@ public class Transcript {
 		        	usersList.add(list);
 		        }
 		}
-		 catch (Exception e) {  
-	         e.printStackTrace();  
+		 catch (Exception e) {
+	         e.printStackTrace();
 	      }
 		return usersList;
 	}
-	
+
 	/**
 	 * showing the contents of transcript table.
 	 */
@@ -107,10 +107,10 @@ public class Transcript {
 			model.addRow(row);
 		}
 	}
-	
+
 	/**
 	 * Initialize the contents of the frame.
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	@SuppressWarnings("serial")
 	private void initialize() throws SQLException {
@@ -120,7 +120,7 @@ public class Transcript {
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 		frame.setTitle("Unofficial Transcript");
-		
+
 		table = new JTable();
 		table.setToolTipText("");
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -138,9 +138,9 @@ public class Transcript {
 		table.setFillsViewportHeight(true);
 		table.setSize(591,239);
 		frame.getContentPane().add(table);
-		
+
 		JScrollPane js= new JScrollPane();
 		table.add(js);
-		
+
 	}
 }

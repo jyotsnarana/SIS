@@ -18,7 +18,7 @@ public class CourseCart {
 	private JFrame frame;
 	private JTable table_1;
 	private JButton btnDrop;
-	String term, course, description;
+	String courseId, courseName, semester, professor, time, room, capacity;
 	private JButton btnBack;
 	/**
 	 * Course cart added for student frame
@@ -64,13 +64,13 @@ public class CourseCart {
 
 						con = new SQLConnection().getConnection();
 
-			        	String SQL = "SELECT * FROM addcourse" ;
+			        	String SQL = "SELECT * FROM student_course where studentId = " + currentUser.id;
 				        stmt = con.createStatement();  
 				        rs = stmt.executeQuery(SQL);
 				        addCourse list;
 				        while(rs.next())
 				        {
-				        	list=new addCourse(rs.getString("Term"), rs.getString("Course"), rs.getString("Description"));
+				        	list=new addCourse(rs.getString("CourseId"), rs.getString("CourseName"), rs.getString("Semester"), rs.getString("Professor"), rs.getString("Time"), rs.getString("Room"), rs.getString("Capacity"));
 				        	usersList.add(list);
 				        }
 			
@@ -92,9 +92,13 @@ public class CourseCart {
 		Object[] row=new Object[9];
 		for(int i=0;i<list_1.size();i++)
 		{
-			row[0]=list_1.get(i).getterm();
-			row[1]=list_1.get(i).getcourse();
-			row[2]=list_1.get(i).getdescription();
+			row[0]=list_1.get(i).getCourseId();
+			row[1]=list_1.get(i).getCourseName();
+			row[2]=list_1.get(i).getSemester();
+			row[3]=list_1.get(i).getProfessor();
+			row[4]=list_1.get(i).getTime();
+			row[5]=list_1.get(i).getRoom();
+			row[6]=list_1.get(i).getCapacity();
 			model.addRow(row);
 		}
 	}
@@ -122,7 +126,7 @@ public class CourseCart {
 			new Object[][] {
 			},
 			new String[] {
-				"Term","Course", "Description"
+					"CourseId", "CourseName", "Semester", "Professor", "Time", "Room", "Capacity"
 			}
 		));
 		
@@ -138,25 +142,24 @@ public class CourseCart {
 					int rowNum= table_1.getSelectedRow();
 				String Course=(String) table_1.getValueAt(rowNum, 1);
 				
-				 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-				 String connectionUrl = "jdbc:sqlserver://localhost:1433;" +
-				         "databaseName=sis_db;user=sa;password=jyotsna";
-				Connection con = DriverManager.getConnection(connectionUrl);
-				
-				String SQL1 = "select * from register_student Where Course='"+Course+"'" ;
+//				 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+//				 String connectionUrl = "jdbc:sqlserver://localhost:1433;" +
+//				         "databaseName=sis_db;user=sa;password=jyotsna";
+				Connection con = SQLConnection.getConnection();
+
+//					String SQL1 = "select * from course Where Course='"+Course+"'" ;
+				String SQL1 = "select * from course_student WHERE CourseId='"+Course+"' AND StudentId=";
 			    Statement   stmt1 = con.createStatement();  
 			     ResultSet   rs1 = stmt1.executeQuery(SQL1);
 			     
 			   
 			     
 			     while(rs1.next()) {
-			    	 term= rs1.getString("Term");
-			    	 course= rs1.getString("Course");
-			    	 description= rs1.getString("Description");
-			    	 System.out.println(course);
+			     	courseId=rs1.getString("CourseId");
+			    	 System.out.println(courseId);
 			     }
 				       
-				        String SQL = "DELETE FROM addcourse WHERE Course= '"+course+"'" ;
+				        String SQL = "DELETE FROM student_course WHERE Course= '"+courseId+"'" ;
 					    Statement   stmt = con.createStatement();  
 					    stmt.executeUpdate(SQL);
 					        

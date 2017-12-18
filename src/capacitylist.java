@@ -15,7 +15,7 @@ public class capacitylist {
 		this.room=room;
 		this.capacity=capacity;
 	}
-	
+
 	public String getcourse()
 	{
 		return course;

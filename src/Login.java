@@ -64,6 +64,8 @@ public class Login {
 	 */
 	@SuppressWarnings("unchecked")
 	private void initialize() {
+//		currentUser cu = null;
+
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -129,7 +131,7 @@ public class Login {
 					con = new SQLConnection().getConnection();
 
 				 // Create and execute an SQL statement that returns some data.
-				 String SQL = "SELECT * FROM login_1 where username=? and password=?";
+				 String SQL = "SELECT * FROM students where StrudentName=? and Password=?";
 
 		        stmt=con.prepareStatement(SQL);
 		        stmt.setString(1,textField.getText());
@@ -143,8 +145,9 @@ public class Login {
 					   {
 						 Admin.newScreen();
 					   }
-		        	   else if((comboBox.getSelectedItem()== "Student") && (textField.getText().equals("student")))
+		        	   else if(comboBox.getSelectedItem()== "Student")
 						{
+							currentUser cu = new currentUser("student", rs.getString("StrudentName"), rs.getInt("StudentId"));
 							Student.newScreen1();
 						}
 		        	   else if((comboBox.getSelectedItem()== "Professor") && (textField.getText().equals("professor")))

@@ -45,16 +45,16 @@ public class admin_student {
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setTitle("Student Login");
 		frame.getContentPane().setLayout(null);
-		
+
 		textField = new JTextField();
 		textField.setBounds(187, 76, 86, 20);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
-		
+
 		JLabel lblStudentid = new JLabel("StudentID:");
 		lblStudentid.setBounds(111, 79, 66, 14);
 		frame.getContentPane().add(lblStudentid);
-		
+
 		JButton btnGo = new JButton("Go");
 		btnGo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

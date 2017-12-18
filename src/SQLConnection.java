@@ -2,7 +2,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class SQLConnection {
-    private static String urlstring = "jdbc:sqlserver://0.0.0.0:1433; databaseName=sis_db;user=sa;password=reallyStrongPwd123";
+    private static String urlstring = "jdbc:sqlserver://0.0.0.0:1433; databaseName=sis2_db;user=sa;password=reallyStrongPwd123";
 //    private static String urlstring = "jdbc:sqlserver://localhost:1433; databaseName=sis_db;user=sa;password=jyotsna;"
     private static Connection con;
 

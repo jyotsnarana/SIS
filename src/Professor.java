@@ -47,7 +47,7 @@ public class Professor {
 		frame.setResizable(false);
 		frame.setTitle("Professor");
 		frame.getContentPane().setLayout(null);
-		
+
 		JButton btnNewButton = new JButton("Weekly Schedule");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -57,7 +57,7 @@ public class Professor {
 		});
 		btnNewButton.setBounds(123, 81, 206, 23);
 		frame.getContentPane().add(btnNewButton);
-		
+
 		JButton btnChangeGrades = new JButton("Change Grades");
 		btnChangeGrades.setBounds(123, 134, 206, 23);
 		frame.getContentPane().add(btnChangeGrades);

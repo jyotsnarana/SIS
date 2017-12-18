@@ -4,54 +4,45 @@
  *
  */
 public class registerList {
-	private String term, course, description, professor, start_date, end_date, start_time, end_time, vacancy;
+	private String courseId, courseName, semester, professor, time, room, capacity;
 
-	public registerList (String term, String course, String description, String professor, String start_date, String end_date, String start_time, String end_time, String vacancy )
+	public registerList (String courseId, String courseName, String semester, String professor, String time, String room, String capacity)
 	{
-		this.term=term;
-		this.course=course;
-		this.description=description;
-		this.start_date=start_date;
-		this.end_date=end_date;
-		this.start_time=start_time;
-		this.end_time=end_time;
-		this.vacancy=vacancy;
+		this.courseId = courseId;
+		this.courseName = courseName;
+		this.semester = semester;
 		this.professor=professor;
+		this.time=time;
+		this.room=room;
+		this.capacity=capacity;
 	}
-	public String getterm()
+
+	public String getCourseId()
 	{
-		return term;
+		return courseId;
 	}
-	public String getcourse()
+	public String getCourseName()
 	{
-		return course;
+		return courseName;
 	}
-	public String getdescription()
+	public String getSemester()
 	{
-		return description;
+		return semester;
 	}
-	public String getprofessor()
+	public String getProfessor()
 	{
 		return professor;
 	}
-	public String getstartdate()
+	public String getTime()
 	{
-		return start_date;
+		return time;
 	}
-	public String getenddate()
+	public String getRoom()
 	{
-		return end_date;
+		return room;
 	}
-	public String getstarttime()
+	public String getCapacity()
 	{
-		return start_time;
-	}
-	public String getendtime()
-	{
-		return end_time;
-	}
-	public String getvacancy()
-	{
-		return vacancy;
+		return capacity;
 	}
 }
