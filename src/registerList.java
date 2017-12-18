@@ -17,10 +17,7 @@ public class registerList {
 		this.capacity=capacity;
 	}
 
-	public String getCourseId()
-	{
-		return courseId;
-	}
+	public String getCourseId() {return courseId; }
 	public String getCourseName()
 	{
 		return courseName;

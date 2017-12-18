@@ -64,7 +64,7 @@ public class CourseCart {
 
 						con = new SQLConnection().getConnection();
 
-			        	String SQL = "SELECT * FROM student_course where studentId = " + currentUser.id;
+			        	String SQL = "SELECT c.*, sc.StudentId FROM student_course sc JOIN course c ON c.id = sc.CourseId WHERE StudentId =" + currentUser.id;
 				        stmt = con.createStatement();  
 				        rs = stmt.executeQuery(SQL);
 				        addCourse list;
@@ -89,7 +89,7 @@ public class CourseCart {
 	{
 		ArrayList<addCourse> list_1= userList();
 		DefaultTableModel model=(DefaultTableModel)table_1.getModel();
-		Object[] row=new Object[9];
+		Object[] row=new Object[7];
 		for(int i=0;i<list_1.size();i++)
 		{
 			row[0]=list_1.get(i).getCourseId();
@@ -140,7 +140,7 @@ public class CourseCart {
 				try 
 				{
 					int rowNum= table_1.getSelectedRow();
-				String Course=(String) table_1.getValueAt(rowNum, 1);
+				String CourseId=(String) table_1.getValueAt(rowNum, 0);
 				
 //				 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 //				 String connectionUrl = "jdbc:sqlserver://localhost:1433;" +
@@ -148,18 +148,22 @@ public class CourseCart {
 				Connection con = SQLConnection.getConnection();
 
 //					String SQL1 = "select * from course Where Course='"+Course+"'" ;
-				String SQL1 = "select * from course_student WHERE CourseId='"+Course+"' AND StudentId=";
+				String SQL1 = "select Id FROM course WHERE CourseId= '"+CourseId+"'";
 			    Statement   stmt1 = con.createStatement();  
 			     ResultSet   rs1 = stmt1.executeQuery(SQL1);
+
+
+					int courseIdentifier = 0;
+					while(rs1.next()) {
+						courseIdentifier= rs1.getInt("Id");
+					}
 			     
-			   
-			     
-			     while(rs1.next()) {
-			     	courseId=rs1.getString("CourseId");
-			    	 System.out.println(courseId);
-			     }
+//			     while(rs1.next()) {
+//			     	courseId=rs1.getString("CourseId");
+//			    	 System.out.println(courseId);
+//			     }
 				       
-				        String SQL = "DELETE FROM student_course WHERE Course= '"+courseId+"'" ;
+				        String SQL = "DELETE FROM student_course WHERE CourseId= '"+courseIdentifier+"' AND StudentId='"+currentUser.id+"'" ;
 					    Statement   stmt = con.createStatement();  
 					    stmt.executeUpdate(SQL);
 					        
