@@ -12,7 +12,8 @@ import javax.swing.SwingConstants;
 //import java.sql.Statement;
 import java.sql.*;
 import java.util.ArrayList;
-
+import java.util.HashMap;
+import java.text.DecimalFormat;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
@@ -30,12 +31,12 @@ public class Transcript {
 
 	private JFrame frame;
 	private JTable table;
-
+	public HashMap<String, Float> semesterGPA = new HashMap<String, Float>();
 
 	/**
 	 * showing the transcript of the student.
 	 * using database table "transcript"
-	 * @author jyotsna
+	 * @author Parisa
 	 */
 	public static void transcript()  {
 		EventQueue.invokeLater(new Runnable() {
@@ -65,22 +66,60 @@ public class Transcript {
 	 * @return rows from transcript table
 	 */
 	public ArrayList<transcriptlist> userList(){
+		float gPA, cGPA;
 		ArrayList<transcriptlist> usersList=new ArrayList<>();
 		Connection con = null;
 	      Statement stmt = null;
 	      ResultSet rs = null;
+
 		try {
 			con = new SQLConnection().getConnection();
 
-			 String SQL = "SELECT * FROM transcript";
-		        stmt = con.createStatement();
-		        rs = stmt.executeQuery(SQL);
-		        transcriptlist list;
+			String SQLGPA = "SELECT AVG(point) AS gpa, Semester FROM student_record WHERE StudentId='"+currentUser.id+"' AND point != 0 GROUP BY Semester";
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(SQLGPA);
+
+			while(rs.next())
+			{
+				semesterGPA.put(rs.getString("Semester"), rs.getFloat("gpa"));
+			}
+
+			System.out.println("SEMESTER GPA: " + semesterGPA.get("Winter17"));
+
+			String SQL = "SELECT * FROM student_record WHERE StudentId='"+currentUser.id+"'AND Semester='Winter17'";
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(SQL);
+			transcriptlist list;
 		        while(rs.next())
 		        {
-		        	list=new transcriptlist(rs.getString("Term"), rs.getString("Course"), rs.getString("Description"), rs.getString("Grade"), rs.getString("GPA"), rs.getString("Term_GPA"));
+					list=new transcriptlist(rs.getString("StudentId"), rs.getString("CourseId"), rs.getString("CourseName"), rs.getString("Grade"), rs.getFloat("Point"), rs.getString("Semester"));
 		        	usersList.add(list);
 		        }
+
+			// Summer 2017 semester
+			String SQL2 = "SELECT * FROM student_record WHERE StudentId='"+currentUser.id+"'AND Semester='Summer17'";
+
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(SQL2);
+			transcriptlist list2;
+			while(rs.next())
+			{
+				list2=new transcriptlist(rs.getString("StudentId"), rs.getString("CourseId"), rs.getString("CourseName"), rs.getString("Grade"), rs.getFloat("Point"), rs.getString("Semester"));
+				usersList.add(list2);
+			}
+
+			// Summer 2017 semester
+//			String SQL2 = "SELECT * FROM student_record WHERE StudentId='"+currentUser.id+"'AND Semester='Summer17'";
+//
+//			stmt = con.createStatement();
+//			rs = stmt.executeQuery(SQL2);
+//			transcriptlist list2;
+//			while(rs.next())
+//			{
+//				list2=new transcriptlist(rs.getString("StudentId"), rs.getString("CourseId"), rs.getString("CourseName"), rs.getString("Grade"), rs.getFloat("Point"), rs.getString("Semester"));
+//				usersList.add(list2);
+//			}
+
 		}
 		 catch (Exception e) {
 	         e.printStackTrace();
@@ -93,19 +132,32 @@ public class Transcript {
 	 */
 	public void show_list()
 	{
+		String currentSemester = "";
 		ArrayList<transcriptlist> list_1= userList();
 		DefaultTableModel model=(DefaultTableModel)table.getModel();
-		Object[] row=new Object[6];
-		for(int i=0;i<list_1.size();i++)
-		{
-			row[0]=list_1.get(i).getterm();
-			row[1]=list_1.get(i).getcourse();
-			row[2]=list_1.get(i).getdescription();
-			row[3]=list_1.get(i).getgrade();
-			row[4]=list_1.get(i).getGPA();
-			row[5]=list_1.get(i).getterm_GPA();
-			model.addRow(row);
-		}
+		Object[] row=new Object[3];
+
+			for(int i=0;i<list_1.size();i++)
+			{
+				if(!currentSemester.equalsIgnoreCase(list_1.get(i).getSemester())){
+					DecimalFormat df = new DecimalFormat("#.00");
+					row[0]="";
+					row[1]="";
+					row[2]="";
+					model.addRow(row);
+					row[0]=list_1.get(i).getSemester();
+					row[1]="";
+					row[2]="GPA: " + df.format(semesterGPA.get(list_1.get(i).getSemester()));
+					model.addRow(row);
+				}
+					row[0]=list_1.get(i).getCourseId();
+					row[1]=list_1.get(i).getCourseName();
+					row[2]=list_1.get(i).getGrade();
+
+				currentSemester = list_1.get(i).getSemester();
+				model.addRow(row);
+			}
+
 	}
 
 	/**
@@ -115,11 +167,12 @@ public class Transcript {
 	@SuppressWarnings("serial")
 	private void initialize() throws SQLException {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 603, 332);
+		frame.setBounds(100, 100, 603, 839);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
-		frame.setTitle("Unofficial Transcript");
+		String title = "Unofficial Transcript		" +"Student Name: "+currentUser.name+"		"+"Student Id: "+currentUser.id;
+				frame.setTitle(title);
 
 		table = new JTable();
 		table.setToolTipText("");
@@ -127,16 +180,16 @@ public class Transcript {
 		table.setLocation(0, 11);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"Term", "Course", "Description", "Grade", "GPA", "Term_GPA"},
+				{"Course Id", "Course Name", "Grade"},
 			},
 			new String[] {
-				"Term", "Course", "Description", "Grade", "GPA", "Term_GPA"
+					"Course Id", "Course Name", "Grade"
 			}
 		));
 		table.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
 		table.setColumnSelectionAllowed(true);
 		table.setFillsViewportHeight(true);
-		table.setSize(591,239);
+		table.setSize(591,739);
 		frame.getContentPane().add(table);
 
 		JScrollPane js= new JScrollPane();

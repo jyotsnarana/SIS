@@ -89,7 +89,7 @@ public class Change_password extends JFrame {
 						con = new SQLConnection().getConnection();
 
 						// Create and execute an SQL statement that returns some data.
-				 		String SQL = "update login_1 set password= "+Integer.valueOf(passwordField_.getText()).intValue()+" where username = '"+textField.getText()+"' ";
+				 		String SQL = "update students set Password= "+Integer.valueOf(passwordField_.getText()).intValue()+" where StrudentName = '"+textField.getText()+"' ";
 				 		stmt = con.createStatement(); 
 				 	
 		        		stmt.executeUpdate(SQL);

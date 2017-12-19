@@ -1,48 +1,40 @@
 /**
  * class used to retrieve data from the database table "transcript"
- * @author jyotsna
+ * @author Parisa
  *
  */
 public class transcriptlist {
-	
-private String term, course, description, grade, GPA, term_GPA;
 
-	public transcriptlist(String term, String course, String description, String grade, String GPA, String term_GPA)
+	private String studentId, courseId, courseName, grade, semester;
+	private float point;
+
+	public transcriptlist (String studentId, String courseId, String courseName, String grade, float Point, String semester)
 	{
-		this.term=term;
-		this.course=course;
-		this.description=description;
-		this.grade=grade;
-		this.GPA=GPA;
-		this.term_GPA=term_GPA;
+		this.studentId = studentId;
+		this.courseId = courseId;
+		this.courseName = courseName;
+		this.grade = grade;
+		this.point = point;
+		this.semester = semester;
+
 	}
-	public String getterm()
+
+	public String getStudentId() {return studentId; }
+	public String getCourseId() {return courseId; }
+	public String getCourseName()
 	{
-		return term;
+		return courseName;
 	}
-	public String getcourse()
-	{
-		return course;
-	}
-	public String getdescription()
-	{
-		return description;
-	}
-	public String getgrade()
+	public String getGrade()
 	{
 		return grade;
 	}
-	public String getGPA()
+	public float getPoint()
 	{
-		return GPA;
+		return point;
 	}
-	public String getterm_GPA()
+	public String getSemester()
 	{
-		return term_GPA;
+		return semester;
 	}
-
-
-
-
-
 }

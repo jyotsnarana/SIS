@@ -22,7 +22,7 @@ public class Tutition_fee extends JFrame {
 
 	/**
 	 * frame used to pay the tutition fee by the student.
-	 * @author jyotsna
+	 * @author Parisa
 	 */
 	public static void main(String args[]) {
 		EventQueue.invokeLater(new Runnable() {

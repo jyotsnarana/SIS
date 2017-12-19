@@ -162,18 +162,24 @@ public class Register_student {
 				Statement   stmt3 = con.createStatement();
 				ResultSet   rs3 = stmt3.executeQuery(SQL3);
 
+				String semester = null;
 				while(rs3.next()) {
 					if(rs3.getInt("CourseId") == courseIdentifier && rs3.getInt("StudentId") == currentUser.id) {
 						throw new Exception();
 					}
+					semester = rs3.getString("Semester");
 				}
 
 				String SQL2=  "INSERT INTO student_course(StudentId, CourseId) VALUES ( '" + currentUser.id + "', " + courseIdentifier + ")";
-
 				Statement   stmt2 = con.createStatement();
 				stmt2.executeUpdate(SQL2);
 
-//			     while(rs1.next()) {
+				// tuition fee add
+				String SQL4=  "INSERT INTO tuition(StudentId, Semester, CourseId, amount) VALUES ( '" + currentUser.id + "', '" + Semester + "', " + courseIdentifier + ", 500.00)";
+				Statement   stmt4 = con.createStatement();
+				stmt4.executeUpdate(SQL4);
+
+				//			    while(rs1.next()) {
 //			    	 int id= rs1.getInt("Id");
 //			     }
 //				       if (course.equalsIgnoreCase("INSE6260  "))

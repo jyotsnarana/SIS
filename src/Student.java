@@ -87,8 +87,8 @@ public class Student extends JFrame {
 			
 			 }     
 		catch (Exception e) {  
-	        e.printStackTrace();  
-	     }
+	        e.printStackTrace();
+		}
 	return usersList;
 	}
 
