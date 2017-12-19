@@ -152,6 +152,7 @@ public class Login {
 						}
 		        	   else if((comboBox.getSelectedItem()== "Professor"))
 						{
+							currentUser cu = new currentUser("professor", rs.getString("StrudentName"), rs.getInt("StudentId"));
 							Professor.newScreen2();
 						}
 		        	   else

@@ -58,15 +58,15 @@ public class ChangeGrade extends JFrame {
 		frame.getContentPane().setLayout(null);
 		frame.setTitle("Change Grade");
 		
-		JLabel lblNewLabel = new JLabel("Term");
+		JLabel lblNewLabel = new JLabel("Semester");
 		lblNewLabel.setBounds(80, 37, 75, 14);
 		frame.getContentPane().add(lblNewLabel);
 		
-		JLabel lblCourse = new JLabel("Course");
+		JLabel lblCourse = new JLabel("Course Id");
 		lblCourse.setBounds(80, 62, 75, 14);
 		frame.getContentPane().add(lblCourse);
 		
-		JLabel lblStudentid = new JLabel("StudentId");
+		JLabel lblStudentid = new JLabel("Student Id");
 		lblStudentid.setBounds(80, 92, 75, 14);
 		frame.getContentPane().add(lblStudentid);
 		
@@ -123,8 +123,9 @@ public class ChangeGrade extends JFrame {
 
 						// Create and execute an SQL statement that returns some data.
 						// TODO remove hardcode value of soen6441 make it dynamic
-				 		String SQL = "update soen6441 set Grade= '"+ textField_3.getText().toUpperCase() +"' where StudentID = '"+textField_2.getText()+"' ";
-				 		stmt = con.createStatement(); 
+//				 		String SQL = "update soen6441 set Grade= '"+ textField_3.getText().toUpperCase() +"' where StudentID = '"+textField_2.getText()+"' ";
+				 		String SQL = "SELECT * FROM student_course sc JOIN course c ON c.Id=sc.CourseId WHERE sc.StudentId= '"+ textField_2.getText() +"' AND c.Semester= '"+textField.getText()+"' AND c.CourseId= '"+ textField_1.getText() +"' AND c.Professor= '"+ currentUser.name +"' ";
+				 		stmt = con.createStatement();
 				 	    System.out.println(textField_3.getText());
 		        		stmt.executeUpdate(SQL);
 		        		JOptionPane.showMessageDialog(null, "Database updated");
