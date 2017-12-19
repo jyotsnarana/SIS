@@ -100,7 +100,7 @@ public class Login {
 		comboBox.setBounds(169, 125, 86, 20);
 		frame.getContentPane().add(comboBox);
 		comboBox.addItem("---Select---");
-		comboBox.addItem("Admin");
+		comboBox.addItem("Advisor");
 		comboBox.addItem("Student");
 		comboBox.addItem("Professor");
 		
@@ -141,7 +141,7 @@ public class Login {
 		        {
 		        	//JOptionPane.showMessageDialog(null, "Username and password successfull");
 
-		        	   if( (comboBox.getSelectedItem()== "Admin") && (textField.getText().equals("admin"))  )
+		        	   if( (comboBox.getSelectedItem()== "Advisor"))
 					   {
 						 Admin.newScreen();
 					   }
@@ -150,7 +150,7 @@ public class Login {
 							currentUser cu = new currentUser("student", rs.getString("StrudentName"), rs.getInt("StudentId"));
 							Student.newScreen1();
 						}
-		        	   else if((comboBox.getSelectedItem()== "Professor") && (textField.getText().equals("professor")))
+		        	   else if((comboBox.getSelectedItem()== "Professor"))
 						{
 							Professor.newScreen2();
 						}
