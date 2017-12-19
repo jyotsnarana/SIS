@@ -94,7 +94,8 @@ public class Admin extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
-				RegisterCourse.main();
+//				RegisterCourse.main();
+				AdvisorRegisterCourses.main();
 			}
 			});
 	}

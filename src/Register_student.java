@@ -162,12 +162,10 @@ public class Register_student {
 				Statement   stmt3 = con.createStatement();
 				ResultSet   rs3 = stmt3.executeQuery(SQL3);
 
-				String semester = null;
 				while(rs3.next()) {
 					if(rs3.getInt("CourseId") == courseIdentifier && rs3.getInt("StudentId") == currentUser.id) {
 						throw new Exception();
 					}
-					semester = rs3.getString("Semester");
 				}
 
 				String SQL2=  "INSERT INTO student_course(StudentId, CourseId) VALUES ( '" + currentUser.id + "', " + courseIdentifier + ")";

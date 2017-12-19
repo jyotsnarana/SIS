@@ -49,41 +49,34 @@ public class RegisterCourse {
 	 * Create the application.
 	 */
 	public RegisterCourse() {
+		System.out.println("Register course - Student ID: " + AdvisorRegisterCourses.StudentId);
 		initialize();
 		show_list();
 	}
 
 	/**
-	 * connection string for retrieving data from register_student database
+	 * connection string for retrieving data from database
 	 * @return array of rows in register_student
 	 */
 	public ArrayList<registerList> userList(){
 		ArrayList<registerList> usersList=new ArrayList<>();
-		
-		
-		
-			
+
 				        Connection con = null;  
 					      Statement stmt = null;  
 					      ResultSet rs = null;
 		try 
 		{
-
 						con = new SQLConnection().getConnection();
-			
-			 
-			       
-//			        	String SQL = "SELECT * FROM register_student" ;
-						String SQL = "SELECT * FROM schedule JOIN courses on courseId = courses.Id" ;
+
+//						String SQL = "SELECT c.* FROM student_course sc JOIN course c ON c.id = sc.CourseId WHERE StudentId = " + AdvisorRegisterCourses.StudentId;
+						String SQL = "SELECT * FROM course";
 						System.out.println(SQL);
 				        stmt = con.createStatement();  
 				        rs = stmt.executeQuery(SQL);
 				        registerList list;
 				        while(rs.next())
 				        {
-
 				        	list=new registerList(rs.getString("CourseId"), rs.getString("CourseName"), rs.getString("Semester"), rs.getString("Professor"), rs.getString("Time"), rs.getString("Room"), rs.getString("Capacity"));
-//							list=new registerList(rs.getString("CourseId"), rs.getString("CourseName"), rs.getString("Semester"), rs.getString("Time"), rs.getString("Room"), rs.getString("Capacity"));
 							usersList.add(list);
 				        }
 			
@@ -127,6 +120,7 @@ public class RegisterCourse {
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 		frame.setTitle("Courses");
+		ArrayList<registerList> usersList=new ArrayList<>();
 
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -138,7 +132,7 @@ public class RegisterCourse {
 			new Object[][] {
 			},
 			new String[] {
-				"Term","Course", "Description", "Professor", "Start", "End", "Start Time", "End Time", "Vacancy"
+				"Course Id","Course Name", "Semester", "Professor", "Time", "Room", "Capacity"
 			}
 		));
 		
@@ -164,36 +158,53 @@ public class RegisterCourse {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				String StudentId = AdvisorRegisterCourses.StudentId;
 				try {
 					int rowNum= table_1.getSelectedRow();
-				String Course=(String) table_1.getValueAt(rowNum, 1);
+					String Course=(String) table_1.getValueAt(rowNum, 0);
+					String Semester=(String) table_1.getValueAt(rowNum, 2);
 
 					Connection con = new SQLConnection().getConnection();
-				
-				String SQL1 = "select * from register_student Where Course='"+Course+"'" ;
-			    Statement   stmt1 = con.createStatement();  
-			     ResultSet   rs1 = stmt1.executeQuery(SQL1);
-			     
-			   
-			     
-			     while(rs1.next()) {
-			    	 term= rs1.getString("Term");
-			    	 course= rs1.getString("Course");
-			    	 description= rs1.getString("Description");
-			    	 System.out.println(course);
-			     }
-				      
-				       // String SQL = "INSERT INTO addcourse (Term, Course, Description) VALUES ('"+term+"','"+course+"','"+description+"') " ;
-				        String SQL= "INSERT INTO addcourse(Term, Course, Description) SELECT t1.Term, t1.Course, t1.Description FROM register_student t1  WHERE NOT EXISTS(SELECT Term   FROM addcourse t2    WHERE t2.Term = t1.Term)";
-				        		  
-				        		                   
-				        		                  
-					    Statement   stmt = con.createStatement();  
-					    stmt.executeUpdate(SQL);
-					   
-				       
+//			      // String SQL = "INSERT INTO addcourse (Term, Course, Description) VALUES ('"+term+"','"+course+"','"+description+"') " ;
+//			      String SQL= "INSERT INTO student_course(Term, Course, Description) SELECT t1.Term, t1.Course, t1.Description FROM register_student t1  WHERE NOT EXISTS(SELECT Term   FROM addcourse t2    WHERE t2.Term = t1.Term)";
+//			      Statement   stmt = con.createStatement();
+
+//				  stmt.executeUpdate(SQL);
+					String SQL1 = "select * from course Where CourseId='"+Course+"' AND Semester='"+Semester+"'";
+					Statement   stmt1 = con.createStatement();
+					ResultSet   rs1 = stmt1.executeQuery(SQL1);
+
+					int courseIdentifier = 0;
+					while(rs1.next()) {
+						courseIdentifier= rs1.getInt("Id");
+					}
+
+//					Check if the class already exist
+					String SQL3 = "SELECT * FROM student_course WHERE StudentId = '" + StudentId + "' AND  CourseId =" + courseIdentifier + "";
+					Statement   stmt3 = con.createStatement();
+					ResultSet   rs3 = stmt3.executeQuery(SQL3);
+
+					while(rs3.next()) {
+						if(rs3.getInt("CourseId") == courseIdentifier && rs3.getString("StudentId").equals(StudentId)) {
+							throw new Exception("course_taken");
+						}
+					}
+
+					String SQL2=  "INSERT INTO student_course(StudentId, CourseId) VALUES ( '" + StudentId + "', " + courseIdentifier + ")";
+					Statement   stmt2 = con.createStatement();
+					stmt2.executeUpdate(SQL2);
+
+					// tuition fee add
+					String SQL4=  "INSERT INTO tuition(StudentId, Semester, CourseId, amount) VALUES ( '" + StudentId + "', '" + Semester + "', " + courseIdentifier + ", 500.00)";
+					Statement   stmt4 = con.createStatement();
+					stmt4.executeUpdate(SQL4);
+
 				}catch(Exception ex) {
-					JOptionPane.showMessageDialog(null, "Course not added");  	
+					if(ex.getMessage().equals("course_taken")) {
+						JOptionPane.showMessageDialog(null, "Course already taken");
+					} else {
+						JOptionPane.showMessageDialog(null, "Course not added");
+					}
 				}
 			}
 		});
