@@ -24,7 +24,7 @@ public class ChangeGrade extends JFrame {
 	/**
 	 * Changing grade by professor only.
 	 * updates the database table "soen6441".
-	 * @author jyotsna, parisanikzad
+	 * @author jyotsna
 	 */
 	public static void changeGrade() {
 		EventQueue.invokeLater(new Runnable() {

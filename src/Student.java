@@ -74,7 +74,7 @@ public class Student extends JFrame {
 						con = new SQLConnection().getConnection();
 
 			        	//String SQL = "SELECT * FROM addcourse" ;
-						String SQL = "SELECT * FROM student_course sc JOIN course c ON c.id = sc.CourseId WHERE StudentId = " + currentUser.id;
+						String SQL = "SELECT c.* FROM student_course sc JOIN course c ON c.id = sc.CourseId WHERE StudentId = " + currentUser.id;
 				        stmt = con.createStatement();  
 				        rs = stmt.executeQuery(SQL);
 				        addCourse list;
@@ -162,7 +162,7 @@ public class Student extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"Term","Course", "Description"
+				"Course Id", "Course Name", "Semester"
 			}
 		));
 		
@@ -174,7 +174,7 @@ public class Student extends JFrame {
 		lblCoursesRegistered.setBounds(219, 46, 134, 14);
 		frame.getContentPane().add(lblCoursesRegistered);
 		
-		JButton btnRegisterCourses = new JButton("Register Courses");
+		JButton btnRegisterCourses = new JButton("Courses");
 		btnRegisterCourses.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Register_student.main(null);
