@@ -100,7 +100,7 @@ public class Login {
 		comboBox.setBounds(169, 125, 86, 20);
 		frame.getContentPane().add(comboBox);
 		comboBox.addItem("---Select---");
-		comboBox.addItem("Advisor");
+		comboBox.addItem("Adviser");
 		comboBox.addItem("Student");
 		comboBox.addItem("Professor");
 		
@@ -141,7 +141,7 @@ public class Login {
 		        {
 		        	//JOptionPane.showMessageDialog(null, "Username and password successfull");
 
-		        	   if( (comboBox.getSelectedItem()== "Advisor"))
+		        	   if( (comboBox.getSelectedItem()== "Adviser"))
 					   {
 						 Admin.newScreen();
 					   }

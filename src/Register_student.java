@@ -208,7 +208,7 @@ public class Register_student {
 
 				}catch(Exception ex) {
 					if(ex.getMessage().equals("Not_take_INSE")) {
-						JOptionPane.showMessageDialog(null, "INSE Course! Please contact Advisor!");
+						JOptionPane.showMessageDialog(null, "INSE Course! Please contact Adviser!");
 					} else if(ex.getMessage().equals("already_taken")) {
 						JOptionPane.showMessageDialog(null, "Course already taken");
 					} else if(ex.getMessage().equals("time_conflict")) {

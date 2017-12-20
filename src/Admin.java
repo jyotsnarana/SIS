@@ -45,49 +45,49 @@ public class Admin extends JFrame{
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setTitle("ADVISOR");
+		frame.setTitle("ADVISER");
 		frame.setResizable(false);
 		frame.getContentPane().setLayout(null);
 
 
-		JButton btnViewTranscript = new JButton("View Transcript");
-		btnViewTranscript.setBounds(113, 165, 171, 23);
-		frame.getContentPane().add(btnViewTranscript);
+//		JButton btnViewTranscript = new JButton("View Transcript");
+//		btnViewTranscript.setBounds(113, 165, 171, 23);
+//		frame.getContentPane().add(btnViewTranscript);
 
-		JButton btnChangeClassCapacity = new JButton("Change Class Capacity");
-		btnChangeClassCapacity.setBounds(113, 107, 171, 23);
-		frame.getContentPane().add(btnChangeClassCapacity);
+//		JButton btnChangeClassCapacity = new JButton("Change Class Capacity");
+//		btnChangeClassCapacity.setBounds(113, 107, 171, 23);
+//		frame.getContentPane().add(btnChangeClassCapacity);
 
 		JButton btnRegisterCourses = new JButton("Register Courses");
 		btnRegisterCourses.setBounds(113, 39, 171, 23);
 		frame.getContentPane().add(btnRegisterCourses);
 
-		JButton btnDropCourses = new JButton("Drop Courses");
-		btnDropCourses.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				admin_student.main(null);
-			}
-		});
-		btnDropCourses.setBounds(113, 221, 171, 23);
-		frame.getContentPane().add(btnDropCourses);
-		btnViewTranscript.addActionListener(new ActionListener()
-		{
-
-			@Override
-			public void actionPerformed(ActionEvent arg0)
-			{
-				ViewStudentTranscript.main();
-			}
-			});
-		btnChangeClassCapacity.addActionListener(new ActionListener()
-		{
-
-			@Override
-			public void actionPerformed(ActionEvent arg0)
-			{
-				ChangeCapacity.main(null);
-			}
-			});
+//		JButton btnDropCourses = new JButton("Drop Courses");
+//		btnDropCourses.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent arg0) {
+//				admin_student.main(null);
+//			}
+//		});
+//		btnDropCourses.setBounds(113, 221, 171, 23);
+//		frame.getContentPane().add(btnDropCourses);
+//		btnViewTranscript.addActionListener(new ActionListener()
+//		{
+//
+//			@Override
+//			public void actionPerformed(ActionEvent arg0)
+//			{
+//				ViewStudentTranscript.main();
+//			}
+//			});
+//		btnChangeClassCapacity.addActionListener(new ActionListener()
+//		{
+//
+//			@Override
+//			public void actionPerformed(ActionEvent arg0)
+//			{
+//				ChangeCapacity.main(null);
+//			}
+//			});
 		btnRegisterCourses.addActionListener(new ActionListener()
 		{
 
@@ -95,7 +95,7 @@ public class Admin extends JFrame{
 			public void actionPerformed(ActionEvent arg0)
 			{
 //				RegisterCourse.main();
-				AdvisorRegisterCourses.main();
+				AdviserRegisterCourses.main();
 			}
 			});
 	}

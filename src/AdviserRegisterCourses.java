@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AdvisorRegisterCourses extends JFrame {
+public class AdviserRegisterCourses extends JFrame {
     private JPanel contentPane;
     private JTextField textField;
     public static String StudentId;
@@ -16,7 +16,7 @@ public class AdvisorRegisterCourses extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    AdvisorRegisterCourses frame = new AdvisorRegisterCourses();
+                    AdviserRegisterCourses frame = new AdviserRegisterCourses();
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -28,7 +28,7 @@ public class AdvisorRegisterCourses extends JFrame {
     /**
      * Create the frame.
      */
-    public AdvisorRegisterCourses() {
+    public AdviserRegisterCourses() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 450, 300);
         contentPane = new JPanel();

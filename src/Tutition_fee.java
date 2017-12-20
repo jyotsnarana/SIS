@@ -66,7 +66,7 @@ public class Tutition_fee extends JFrame {
 				new Object[][] {
 				},
 				new String[] {
-						"Semester","Tuition Fee", "Due Date", "Paid", "Debt"
+						"Semester","Tuition Fee", "Due Date",
 				}
 		));
 
@@ -222,6 +222,20 @@ public class Tutition_fee extends JFrame {
 
 			model.addRow(row);
 		}
+
+		row[0]="";
+		row[1]="";
+		row[2]="";model.addRow(row);
+		row[0]="";
+		row[1]="";
+		row[2]="";model.addRow(row);
+		row[0]="";
+		row[1]="";
+		row[2]="";model.addRow(row);
+//		row[0]="Paid: "+list_2.get(1).getPied()+;
+//		row[1]="";
+//		row[2]="Debt: "+list_2.get(1).getDebt()+;
+
 	}
 
 }

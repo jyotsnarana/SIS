@@ -49,7 +49,7 @@ public class RegisterCourse {
 	 * Create the application.
 	 */
 	public RegisterCourse() {
-		System.out.println("Register course - Student ID: " + AdvisorRegisterCourses.StudentId);
+		System.out.println("Register course - Student ID: " + AdviserRegisterCourses.StudentId);
 		initialize();
 		show_list();
 	}
@@ -68,7 +68,7 @@ public class RegisterCourse {
 		{
 						con = new SQLConnection().getConnection();
 
-//						String SQL = "SELECT c.* FROM student_course sc JOIN course c ON c.id = sc.CourseId WHERE StudentId = " + AdvisorRegisterCourses.StudentId;
+//						String SQL = "SELECT c.* FROM student_course sc JOIN course c ON c.id = sc.CourseId WHERE StudentId = " + AdviserRegisterCourses.StudentId;
 						String SQL = "SELECT * FROM course";
 						System.out.println(SQL);
 				        stmt = con.createStatement();  
@@ -158,7 +158,7 @@ public class RegisterCourse {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String StudentId = AdvisorRegisterCourses.StudentId;
+				String StudentId = AdviserRegisterCourses.StudentId;
 				try {
 					int rowNum= table_1.getSelectedRow();
 					String SelectCourse=(String) table_1.getValueAt(rowNum, 0);
