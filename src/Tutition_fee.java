@@ -19,6 +19,7 @@ public class Tutition_fee extends JFrame {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
+	public float debt = 0;
 
 
 
@@ -73,28 +74,9 @@ public class Tutition_fee extends JFrame {
 		table_1.setRowSelectionAllowed(true);
 		scrollPane.setViewportView(table_1);
 
-
-		JLabel lblCardno = new JLabel("CardNo.");
-		lblCardno.setBounds(41, 150, 70, 14);
-		frame.getContentPane().add(lblCardno);
-
-		JLabel lbldigitno = new JLabel("3-digitNo.");
-		lbldigitno.setBounds(41, 175, 70, 14);
-		frame.getContentPane().add(lbldigitno);
-
 		JLabel lblAmount = new JLabel("Amount ");
 		lblAmount.setBounds(41, 200, 70, 14);
 		frame.getContentPane().add(lblAmount);
-
-		card_Field = new JTextField();
-		card_Field.setColumns(10);
-		card_Field.setBounds(171, 147, 231, 20);
-		frame.getContentPane().add(card_Field);
-
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(171, 172, 70, 20);
-		frame.getContentPane().add(textField_2);
 
 		textField_3 = new JTextField();
 		textField_3.setColumns(10);
@@ -126,11 +108,28 @@ public class Tutition_fee extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-                 int t_fee= (Integer.valueOf(label.getText()).intValue())-(Integer.valueOf(textField_3.getText()).intValue());
-				 label.setText(String.valueOf(t_fee));
-				 JOptionPane.showMessageDialog(null, "Sucessfull Payment");
+				String amount = textField_3.getText();
+
+				Connection con = null;
+				Statement stmt2 = null;
+				try
+				{
+					con = new SQLConnection().getConnection();
+
+					String SQL2 = "INSERT INTO payment(StudentId, Paid) VALUES('"+currentUser.id+"', " + Float.parseFloat(amount) + ")";
+					stmt2 = con.createStatement();
+					stmt2.executeUpdate(SQL2);
+
+
+					label.setText(String.valueOf(amount));
+					JOptionPane.showMessageDialog(null, "Sucessfull Payment");
 
 				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+
+			}
 
 		});
 	}
@@ -148,17 +147,18 @@ public class Tutition_fee extends JFrame {
 			con = new SQLConnection().getConnection();
 
 //			String SQL = "SELECT c.* FROM student_course sc JOIN course c ON c.id = sc.CourseId WHERE StudentId = " + currentUser.id;
-			String SQL = "SELECT SUM(amount)  AS tuition, Semester FROM tuition WHERE StudentId='"+currentUser.id+"' GROUP BY Semester";
+			String SQL = "SELECT SUM(amount) AS tuition, Semester FROM tuition WHERE StudentId='"+currentUser.id+"' GROUP BY Semester";
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(SQL);
 			addTuition list;
 			while(rs.next())
 			{
 				list=new addTuition(rs.getString("Semester"), rs.getFloat("tuition"));
+				debt = debt + rs.getFloat("tuition");
 				usersList.add(list);
 			}
-
 		}
+
 		catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -175,14 +175,22 @@ public class Tutition_fee extends JFrame {
 		{
 			con = new SQLConnection().getConnection();
 
-			String SQL2 = "SELECT * FROM payment WHERE StudentId='"+currentUser.id+"' ";
+//			tuitiion = 3000; query
+//			already_paid = 500; query
+//			tuition - already_paid = debt 2500
+
+
+			String SQL2 = "SELECT StudentId, SUM(paid) AS paid FROM payment WHERE StudentId='"+currentUser.id+"' GROUP BY StudentId		";
 			stmt2 = con.createStatement();
 			rs2 = stmt2.executeQuery(SQL2);
 			addPayment list2;
-			while(rs2.next())
-			{
-				list2=new addPayment(rs2.getString("StudentId"), rs2.getFloat("Paid"), rs2.getFloat("Debt"));
-				usersList2.add(list2);
+
+			if(rs2.isBeforeFirst()) {
+				while(rs2.next())
+				{
+					list2=new addPayment(rs2.getString("StudentId"), rs2.getFloat("paid"));
+					usersList2.add(list2);
+				}
 			}
 
 
@@ -200,7 +208,7 @@ public class Tutition_fee extends JFrame {
 		DefaultTableModel model=(DefaultTableModel)table_1.getModel();
 		Object[] row=new Object[3];
 		String dueDate = null;
-		float debt, paid;
+		float paid;
 
 
 
@@ -215,7 +223,9 @@ public class Tutition_fee extends JFrame {
 			}else if(list_1.get(i).getSemester().equalsIgnoreCase("Fall17")){
 				dueDate = "September 31";
 			};
-//			System.out.println(dueDate);
+
+			System.out.println(dueDate);
+
 			row[0]=list_1.get(i).getSemester();
 			row[1]=list_1.get(i).getTuition();
 			row[2]=dueDate;
@@ -223,18 +233,27 @@ public class Tutition_fee extends JFrame {
 			model.addRow(row);
 		}
 
-		row[0]="";
-		row[1]="";
-		row[2]="";model.addRow(row);
-		row[0]="";
-		row[1]="";
-		row[2]="";model.addRow(row);
-		row[0]="";
-		row[1]="";
-		row[2]="";model.addRow(row);
-//		row[0]="Paid: "+list_2.get(1).getPied()+;
-//		row[1]="";
-//		row[2]="Debt: "+list_2.get(1).getDebt()+;
+//		insert empty rows
+		for(int i=0;i<2;i++){
+			row[0]="";
+			row[1]="";
+			row[2]="";
+			model.addRow(row);
+		}
+System.out.println("DEBT: " + debt);
+		if(!list_2.isEmpty()){
+			System.out.println(list_2.get(0).getPaid());
+			System.out.println((debt - list_2.get(0).getPaid()));
+			float debt2 = (debt - list_2.get(0).getPaid());
+			row[0]="Paid: " + list_2.get(0).getPaid();
+			row[1]="";
+			row[2]="Debt: " + String.valueOf(debt2) + " $";
+		} else {
+			row[0]="Paid: 0.00 $";
+			row[1]="";
+			row[2]="Debt: " + debt + " $";
+		}
+		model.addRow(row);
 
 	}
 
