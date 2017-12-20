@@ -141,61 +141,65 @@ public class Register_student {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					int rowNum= table_1.getSelectedRow();
-				String CourseId=(String) table_1.getValueAt(rowNum, 0);
-				String Semester=(String) table_1.getValueAt(rowNum, 2);
+					String SelectCourseId=(String) table_1.getValueAt(rowNum, 0);
+					String SelectSemester=(String) table_1.getValueAt(rowNum, 2);
 
-				Connection con = new SQLConnection().getConnection();
+					Connection con = new SQLConnection().getConnection();
 
-//				String SQL1 = "select * from register_student Where Course='"+Course+"'" ;
-//					CourseId = COMP6311; unique id = 1;
-
- 				String SQL1 = "select * from course Where CourseId='"+CourseId+"' AND Semester='"+Semester+"'";
-			    Statement   stmt1 = con.createStatement();
-			    ResultSet   rs1 = stmt1.executeQuery(SQL1);
+					String SQL1 = "select * from course Where CourseId='"+SelectCourseId+"' AND Semester='"+SelectSemester+"'";
+					Statement   stmt1 = con.createStatement();
+					ResultSet   rs1 = stmt1.executeQuery(SQL1);
 
 					int courseIdentifier = 0;
+					String CourseId = null;
+					String CourseName = null;
+					String Grade = "NA";
+					Double Point= 0.0;
+					String Semester = null;
 					while(rs1.next()) {
+						if(rs1.getString("CourseId").equals("INSE6260")) {
+							throw new Exception("Not_take_INSE");
+						}
+
 						courseIdentifier= rs1.getInt("Id");
+						CourseId = rs1.getString("CourseId");
+						CourseName = rs1.getString("CourseName");
+						Semester = rs1.getString("Semester");
 					}
 
-				String SQL3 = "SELECT * FROM student_course WHERE StudentId = '" + currentUser.id + "' AND  CourseId =" + courseIdentifier + "";
-				Statement   stmt3 = con.createStatement();
-				ResultSet   rs3 = stmt3.executeQuery(SQL3);
+					String SQL3 = "SELECT * FROM student_course WHERE StudentId = '" + currentUser.id + "' AND  CourseId =" + courseIdentifier + "";
+					Statement   stmt3 = con.createStatement();
+					ResultSet   rs3 = stmt3.executeQuery(SQL3);
 
-				while(rs3.next()) {
-					if(rs3.getInt("CourseId") == courseIdentifier && rs3.getInt("StudentId") == currentUser.id) {
-						throw new Exception();
+					while(rs3.next()) {
+						if(rs3.getInt("CourseId") == courseIdentifier && rs3.getInt("StudentId") == currentUser.id) {
+							throw new Exception();
+						}
 					}
-				}
 
-				String SQL2=  "INSERT INTO student_course(StudentId, CourseId) VALUES ( '" + currentUser.id + "', " + courseIdentifier + ")";
-				Statement   stmt2 = con.createStatement();
-				stmt2.executeUpdate(SQL2);
+	//				Student class taken
+					String SQL2=  "INSERT INTO student_course(StudentId, CourseId) VALUES ( '" + currentUser.id + "', " + courseIdentifier + ")";
+					Statement   stmt2 = con.createStatement();
+					stmt2.executeUpdate(SQL2);
 
-				// tuition fee add
-				String SQL4=  "INSERT INTO tuition(StudentId, Semester, CourseId, amount) VALUES ( '" + currentUser.id + "', '" + Semester + "', " + courseIdentifier + ", 500.00)";
-				Statement   stmt4 = con.createStatement();
-				stmt4.executeUpdate(SQL4);
+					// tuition fee add
+					String SQL4=  "INSERT INTO tuition(StudentId, Semester, CourseId, amount) VALUES ( '" + currentUser.id + "', '" + Semester + "', " + courseIdentifier + ", 500.00)";
+					Statement   stmt4 = con.createStatement();
+					stmt4.executeUpdate(SQL4);
 
-				//			    while(rs1.next()) {
-//			    	 int id= rs1.getInt("Id");
-//			     }
-//				       if (course.equalsIgnoreCase("INSE6260  "))
-//				       {
-//				    	   JOptionPane.showMessageDialog(null, "Cannot register");
-//				       }
-//				       else {
-//				    	  // String SQL = "INSERT INTO addcourse (Term, Course, Description) VALUES ('"+term+"','"+course+"','"+description+"') " ;
-//						   String SQL= "INSERT INTO student_course(StudentId, CourseId) SELECT students.StudentId, course.CourseId FROM students, course WHERE NOT EXISTS(SELECT StudentId, CourseId FROM students_course sc WHERE sc.StudentId = ? AND sc.CourseId = ?)";
-////				    	   String SQL= "INSERT INTO addcourse(Term, Course, Description) SELECT t1.Term, t1.Course, t1.Description FROM register_student t1  WHERE NOT EXISTS(SELECT Term   FROM addcourse t2    WHERE t2.Term = t1.Term)";
-//					    Statement   stmt = con.createStatement();
-//					    stmt.executeUpdate(SQL);
-//
-//				       }
-			     
+					// Student new record
+//					TODO REMOVE row IF course is drop
+					String SQL5=  "INSERT INTO student_record(StudentId, CourseId, CourseName, Grade, point, Semester) VALUES ( '" + currentUser.id + "', '"+ CourseId +"', '"+ CourseName +"', '"+ Grade+"' , "+ Point +", '" + Semester + "')";
+					Statement   stmt5 = con.createStatement();
+					stmt5.executeUpdate(SQL5);
+
 				}catch(Exception ex) {
-					ex.printStackTrace();
-					JOptionPane.showMessageDialog(null, "Course already taken"); 
+					if(ex.getMessage().equals("Not_take_INSE")) {
+						JOptionPane.showMessageDialog(null, "INSE Course! Please contact Advisor!");
+					}else{
+						ex.printStackTrace();
+						JOptionPane.showMessageDialog(null, "Course already taken");
+					}
 				}
 			
 			}

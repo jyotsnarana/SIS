@@ -137,43 +137,49 @@ public class CourseCart {
 		btnDrop = new JButton("Drop");
 		btnDrop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				try 
-				{
-					int rowNum= table_1.getSelectedRow();
-				String CourseId=(String) table_1.getValueAt(rowNum, 0);
-				String Semester=(String) table_1.getValueAt(rowNum, 2);
-				
-//				 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-//				 String connectionUrl = "jdbc:sqlserver://localhost:1433;" +
-//				         "databaseName=sis_db;user=sa;password=jyotsna";
-				Connection con = SQLConnection.getConnection();
+				try {
+					int rowNum = table_1.getSelectedRow();
+					String SelectCourseId = (String) table_1.getValueAt(rowNum, 0);
+					String SelectSemester = (String) table_1.getValueAt(rowNum, 2);
 
-//					String SQL1 = "select * from course Where Course='"+Course+"'" ;
-				String SQL1 = "select Id FROM course WHERE CourseId= '"+CourseId+"' AND Semester = '" + Semester + "'";
-			    Statement   stmt1 = con.createStatement();
-			    ResultSet   rs1 = stmt1.executeQuery(SQL1);
+					Connection con = SQLConnection.getConnection();
+
+					String SQL1 = "select * FROM course WHERE CourseId= '" + SelectCourseId + "' AND Semester = '" + SelectSemester + "'";
+					Statement stmt1 = con.createStatement();
+					ResultSet rs1 = stmt1.executeQuery(SQL1);
 
 
 					int courseIdentifier = 0;
-					while(rs1.next()) {
-						courseIdentifier= rs1.getInt("Id");
+					String CourseId = null;
+					String Semester = null;
+					while (rs1.next()) {
+						courseIdentifier = rs1.getInt("Id");
+						CourseId = rs1.getString("CourseId");
+						Semester = rs1.getString("Semester");
 					}
-			     
-//			     while(rs1.next()) {
-//			     	courseId=rs1.getString("CourseId");
-//			    	 System.out.println(courseId);
-//			     }
 
-				        String SQL = "DELETE FROM student_course WHERE CourseId= '"+courseIdentifier+"' AND StudentId='"+currentUser.id+"'" ;
-					    Statement   stmt = con.createStatement();  
-					    stmt.executeUpdate(SQL);
+					String SQL = "DELETE FROM student_course WHERE CourseId= '" + courseIdentifier + "' AND StudentId='" + currentUser.id + "'";
+					Statement stmt = con.createStatement();
+					stmt.executeUpdate(SQL);
 
 					// tuition fee drop
-					String SQL2=  "DELETE FROM tuition WHERE  StudentId = '" + currentUser.id + "' AND Semester = '" + Semester + "' AND CourseId = " + courseIdentifier + "";
-					Statement   stmt2 = con.createStatement();
+					String SQL2 = "DELETE FROM tuition WHERE  StudentId = '" + currentUser.id + "' AND Semester = '" + Semester + "' AND CourseId = " + courseIdentifier + "";
+					Statement stmt2 = con.createStatement();
 					stmt2.executeUpdate(SQL2);
 
-				}catch(Exception ex) {
+					// Remove Student record if its not too late
+//					if(Not too late) {
+						String SQL3 = "DELETE FROM student_record WHERE StudentId = '" + currentUser.id + "' AND CourseId = '" + CourseId + "' AND Semester = '" + Semester + "'";
+						Statement stmt3 = con.createStatement();
+						stmt3.executeUpdate(SQL3);
+//					} else {
+//						// TODO Update student_record if its past due
+//						String SQL4 = "UPDATE student_record SET Grade = 'DISC', point = 0 WHERE StudentId = '" + currentUser.id + "' AND CourseId = '" + CourseId + "' AND Semester = '" + Semester + "'";
+//						Statement stmt4 = con.createStatement();
+//						stmt4.executeUpdate(SQL4);
+//					}
+
+				} catch(Exception ex) {
 					ex.printStackTrace();
 					//JOptionPane.showMessageDialog(null, "Course already taken");
 				}

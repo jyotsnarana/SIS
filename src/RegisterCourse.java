@@ -161,8 +161,8 @@ public class RegisterCourse {
 				String StudentId = AdvisorRegisterCourses.StudentId;
 				try {
 					int rowNum= table_1.getSelectedRow();
-					String Course=(String) table_1.getValueAt(rowNum, 0);
-					String Semester=(String) table_1.getValueAt(rowNum, 2);
+					String SelectCourse=(String) table_1.getValueAt(rowNum, 0);
+					String SelectSemester=(String) table_1.getValueAt(rowNum, 2);
 
 					Connection con = new SQLConnection().getConnection();
 //			      // String SQL = "INSERT INTO addcourse (Term, Course, Description) VALUES ('"+term+"','"+course+"','"+description+"') " ;
@@ -170,13 +170,21 @@ public class RegisterCourse {
 //			      Statement   stmt = con.createStatement();
 
 //				  stmt.executeUpdate(SQL);
-					String SQL1 = "select * from course Where CourseId='"+Course+"' AND Semester='"+Semester+"'";
+					String SQL1 = "select * from course Where CourseId='"+SelectCourse+"' AND Semester='"+SelectSemester+"'";
 					Statement   stmt1 = con.createStatement();
 					ResultSet   rs1 = stmt1.executeQuery(SQL1);
 
 					int courseIdentifier = 0;
+					String CourseId = null;
+					String CourseName = null;
+					String Grade = "NA";
+					Double Point= 0.0;
+					String Semester = null;
 					while(rs1.next()) {
 						courseIdentifier= rs1.getInt("Id");
+						CourseId = rs1.getString("CourseId");
+						CourseName = rs1.getString("CourseName");
+						Semester = rs1.getString("Semester");
 					}
 
 //					Check if the class already exist
@@ -199,10 +207,16 @@ public class RegisterCourse {
 					Statement   stmt4 = con.createStatement();
 					stmt4.executeUpdate(SQL4);
 
+					// Student new record
+					String SQL5=  "INSERT INTO student_record(StudentId, CourseId, CourseName, Grade, point, Semester) VALUES ( '" + StudentId + "', '"+ CourseId +"', '"+ CourseName +"', '"+ Grade+"' , "+ Point +", '" + Semester + "')";
+					Statement   stmt5 = con.createStatement();
+					stmt5.executeUpdate(SQL5);
+
 				}catch(Exception ex) {
 					if(ex.getMessage().equals("course_taken")) {
 						JOptionPane.showMessageDialog(null, "Course already taken");
 					} else {
+						ex.printStackTrace();
 						JOptionPane.showMessageDialog(null, "Course not added");
 					}
 				}

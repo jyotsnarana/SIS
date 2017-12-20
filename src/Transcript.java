@@ -32,6 +32,7 @@ public class Transcript {
 	private JFrame frame;
 	private JTable table;
 	public HashMap<String, Float> semesterGPA = new HashMap<String, Float>();
+	public Float cGPA;
 
 	/**
 	 * showing the transcript of the student.
@@ -66,7 +67,6 @@ public class Transcript {
 	 * @return rows from transcript table
 	 */
 	public ArrayList<transcriptlist> userList(){
-		float gPA, cGPA;
 		ArrayList<transcriptlist> usersList=new ArrayList<>();
 		Connection con = null;
 	      Statement stmt = null;
@@ -74,6 +74,16 @@ public class Transcript {
 
 		try {
 			con = new SQLConnection().getConnection();
+
+			String SQLCGPA = "SELECT AVG(point) AS cgpa FROM student_record WHERE StudentId='"+currentUser.id+"' AND point != 0";
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(SQLCGPA);
+
+			while(rs.next())
+			{
+				System.out.println("Cumulative GPA: " +rs.getFloat("cgpa"));
+				cGPA = rs.getFloat("cgpa");
+			}
 
 			String SQLGPA = "SELECT AVG(point) AS gpa, Semester FROM student_record WHERE StudentId='"+currentUser.id+"' AND point != 0 GROUP BY Semester";
 			stmt = con.createStatement();
@@ -108,17 +118,41 @@ public class Transcript {
 				usersList.add(list2);
 			}
 
-			// Summer 2017 semester
-//			String SQL2 = "SELECT * FROM student_record WHERE StudentId='"+currentUser.id+"'AND Semester='Summer17'";
-//
-//			stmt = con.createStatement();
-//			rs = stmt.executeQuery(SQL2);
-//			transcriptlist list2;
-//			while(rs.next())
-//			{
-//				list2=new transcriptlist(rs.getString("StudentId"), rs.getString("CourseId"), rs.getString("CourseName"), rs.getString("Grade"), rs.getFloat("Point"), rs.getString("Semester"));
-//				usersList.add(list2);
-//			}
+			// Fall 2017 semester
+			String SQL3 = "SELECT * FROM student_record WHERE StudentId='"+currentUser.id+"'AND Semester='Fall17'";
+
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(SQL3);
+			transcriptlist list3;
+			while(rs.next())
+			{
+				list3=new transcriptlist(rs.getString("StudentId"), rs.getString("CourseId"), rs.getString("CourseName"), rs.getString("Grade"), rs.getFloat("Point"), rs.getString("Semester"));
+				usersList.add(list3);
+			}
+
+			// Winter 2018 semester
+			String SQL4 = "SELECT * FROM student_record WHERE StudentId='"+currentUser.id+"'AND Semester='Winter18'";
+
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(SQL4);
+			transcriptlist list4;
+			while(rs.next())
+			{
+				list4=new transcriptlist(rs.getString("StudentId"), rs.getString("CourseId"), rs.getString("CourseName"), rs.getString("Grade"), rs.getFloat("Point"), rs.getString("Semester"));
+				usersList.add(list4);
+			}
+
+			// Summer 2018 semester
+			String SQL5 = "SELECT * FROM student_record WHERE StudentId='"+currentUser.id+"'AND Semester='Summer18'";
+
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(SQL5);
+			transcriptlist list5;
+			while(rs.next())
+			{
+				list5=new transcriptlist(rs.getString("StudentId"), rs.getString("CourseId"), rs.getString("CourseName"), rs.getString("Grade"), rs.getFloat("Point"), rs.getString("Semester"));
+				usersList.add(list5);
+			}
 
 		}
 		 catch (Exception e) {
@@ -136,18 +170,22 @@ public class Transcript {
 		ArrayList<transcriptlist> list_1= userList();
 		DefaultTableModel model=(DefaultTableModel)table.getModel();
 		Object[] row=new Object[3];
-
+		DecimalFormat df = new DecimalFormat("#.00");
 			for(int i=0;i<list_1.size();i++)
 			{
 				if(!currentSemester.equalsIgnoreCase(list_1.get(i).getSemester())){
-					DecimalFormat df = new DecimalFormat("#.00");
 					row[0]="";
 					row[1]="";
 					row[2]="";
 					model.addRow(row);
 					row[0]=list_1.get(i).getSemester();
 					row[1]="";
-					row[2]="GPA: " + df.format(semesterGPA.get(list_1.get(i).getSemester()));
+					try{
+						row[2] = "GPA: " + df.format(semesterGPA.get(list_1.get(i).getSemester()));
+					} catch(Exception ex) {
+						row[2]="GPA: "+ df.format(0.0);
+					}
+
 					model.addRow(row);
 				}
 					row[0]=list_1.get(i).getCourseId();
@@ -157,6 +195,21 @@ public class Transcript {
 				currentSemester = list_1.get(i).getSemester();
 				model.addRow(row);
 			}
+
+			row[0]="";
+			row[1]="";
+			row[2]="";model.addRow(row);
+			row[0]="";
+			row[1]="";
+			row[2]="";model.addRow(row);
+			row[0]="";
+			row[1]="";
+			row[2]="";model.addRow(row);
+			row[0]="";
+			row[1]="CGPA: " + df.format(cGPA);
+			row[2]="";
+
+			model.addRow(row);
 
 	}
 
