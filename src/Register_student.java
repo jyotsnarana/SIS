@@ -25,7 +25,7 @@ public class Register_student {
 	 * Student registration done by student only
 	 * uses database table "register_student"
 	 * update database table "addcourse"
-	 * @author jyotsna
+	 * @author jyotsna, parisanikzad
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -156,7 +156,9 @@ public class Register_student {
 					String Grade = "NA";
 					Double Point= 0.0;
 					String Semester = null;
+					String Time = null;
 					while(rs1.next()) {
+//						INSE expcetion
 						if(rs1.getString("CourseId").equals("INSE6260")) {
 							throw new Exception("Not_take_INSE");
 						}
@@ -165,16 +167,27 @@ public class Register_student {
 						CourseId = rs1.getString("CourseId");
 						CourseName = rs1.getString("CourseName");
 						Semester = rs1.getString("Semester");
+						Time = rs1.getString("Time");
 					}
 
-					String SQL3 = "SELECT * FROM student_course WHERE StudentId = '" + currentUser.id + "' AND  CourseId =" + courseIdentifier + "";
+					String SQL3 = "SELECT * FROM student_course s JOIN course c ON c.id = s.CourseId WHERE s.StudentId = '" + currentUser.id + "'";// AND  CourseId =" + courseIdentifier + "";
 					Statement   stmt3 = con.createStatement();
 					ResultSet   rs3 = stmt3.executeQuery(SQL3);
 
 					while(rs3.next()) {
 						if(rs3.getInt("CourseId") == courseIdentifier && rs3.getInt("StudentId") == currentUser.id) {
-							throw new Exception();
+							throw new Exception("already_taken");
 						}
+
+						System.out.println(Time);
+						System.out.println(Semester);
+						System.out.println(rs3.getString("Time"));
+						System.out.println(rs3.getString("Semester"));
+						//	Time conflict exception
+						if(Time.equalsIgnoreCase(rs3.getString("Time")) && Semester.equalsIgnoreCase(rs3.getString("Semester"))) {
+							throw new Exception("time_conflict");
+						}
+
 					}
 
 	//				Student class taken
@@ -196,9 +209,13 @@ public class Register_student {
 				}catch(Exception ex) {
 					if(ex.getMessage().equals("Not_take_INSE")) {
 						JOptionPane.showMessageDialog(null, "INSE Course! Please contact Advisor!");
-					}else{
-						ex.printStackTrace();
+					} else if(ex.getMessage().equals("already_taken")) {
 						JOptionPane.showMessageDialog(null, "Course already taken");
+					} else if(ex.getMessage().equals("time_conflict")) {
+						JOptionPane.showMessageDialog(null, "There is a time conflict for this course");
+					} else{
+						ex.printStackTrace();
+//						JOptionPane.showMessageDialog(null, "Course already taken");
 					}
 				}
 			
