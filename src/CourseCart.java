@@ -12,6 +12,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.HashMap;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class CourseCart {
 
@@ -20,6 +24,8 @@ public class CourseCart {
 	private JButton btnDrop;
 	String courseId, courseName, semester, professor, time, room, capacity;
 	private JButton btnBack;
+	private static final DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//	private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	/**
 	 * Course cart added for student frame
 	 * database table "addcourse" used to show the courses taken.
@@ -158,30 +164,44 @@ public class CourseCart {
 						Semester = rs1.getString("Semester");
 					}
 
-					String SQL = "DELETE FROM student_course WHERE CourseId= '" + courseIdentifier + "' AND StudentId='" + currentUser.id + "'";
-					Statement stmt = con.createStatement();
-					stmt.executeUpdate(SQL);
+					Date now = new Date();
+					System.out.println(now);
+					Date parseDate = sdf.parse("2017-11-15");
+					System.out.println(parseDate);
 
-					// tuition fee drop
-					String SQL2 = "DELETE FROM tuition WHERE  StudentId = '" + currentUser.id + "' AND Semester = '" + Semester + "' AND CourseId = " + courseIdentifier + "";
-					Statement stmt2 = con.createStatement();
-					stmt2.executeUpdate(SQL2);
+//					HashMap<String, String> discDate = new HashMap<String, String>();
+//					discDate.put("Fall17", "2017-11-15");
+//					discDate.put("Winter18", "2018-02-15");
+//					discDate.put("Summer18", "2018-06-15");
 
 					// Remove Student record if its not too late
-//					if(Not too late) {
+					if(now.before(parseDate)) {
+//						delete the course
+						String SQL = "DELETE FROM student_course WHERE CourseId= '" + courseIdentifier + "' AND StudentId='" + currentUser.id + "'";
+						Statement stmt = con.createStatement();
+						stmt.executeUpdate(SQL);
+
+						// tuition fee drop
+						String SQL2 = "DELETE FROM tuition WHERE  StudentId = '" + currentUser.id + "' AND Semester = '" + Semester + "' AND CourseId = " + courseIdentifier + "";
+						Statement stmt2 = con.createStatement();
+						stmt2.executeUpdate(SQL2);
+
 						String SQL3 = "DELETE FROM student_record WHERE StudentId = '" + currentUser.id + "' AND CourseId = '" + CourseId + "' AND Semester = '" + Semester + "'";
 						Statement stmt3 = con.createStatement();
 						stmt3.executeUpdate(SQL3);
-//					} else {
-//						// TODO Update student_record if its past due
-//						String SQL4 = "UPDATE student_record SET Grade = 'DISC', point = 0 WHERE StudentId = '" + currentUser.id + "' AND CourseId = '" + CourseId + "' AND Semester = '" + Semester + "'";
-//						Statement stmt4 = con.createStatement();
-//						stmt4.executeUpdate(SQL4);
-//					}
+					} else {
+						// TODO Update student_record if its past due
+						String SQL4 = "UPDATE student_record SET Grade = 'DISC', point = 0 WHERE StudentId = '" + currentUser.id + "' AND CourseId = '" + CourseId + "' AND Semester = '" + Semester + "'";
+						Statement stmt4 = con.createStatement();
+						stmt4.executeUpdate(SQL4);
+												JOptionPane.showMessageDialog(null, "The course is counted as discontinued");
+//						To message.
+//						throw new Exception();
+					}
 
 				} catch(Exception ex) {
 					ex.printStackTrace();
-					//JOptionPane.showMessageDialog(null, "Course already taken");
+					JOptionPane.showMessageDialog(null, "The course is counted as discontinued");
 				}
 			}
 		});
